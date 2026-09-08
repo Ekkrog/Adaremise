@@ -1,28 +1,22 @@
 {
-  "name": "adatabase",
+  "name": "back",
   "version": "1.0.0",
-  "description": "Conception et implémentation de la base de données pour **La Remise**, une ressourcerie associative. Ce dépôt est le socle du projet fullstack",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server/server.js",
-    "dev": "nodemon ./server/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leika127/ADATABASE.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/server.js",
+    "start": "node ./server/server.js"
   },
   "keywords": [],
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/leika127/ADATABASE/issues"
-  },
-  "homepage": "https://github.com/leika127/ADATABASE#readme",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "fs": "^0.0.1-security",
+    "node": "^26.8.1",
     "nodemon": "^3.1.14",
     "pg": "^8.23.0",
+    "swagger": "^0.7.5",
     "swagger-ui-express": "^5.0.1"
   }
 }

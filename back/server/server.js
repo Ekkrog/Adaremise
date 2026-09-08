@@ -11,7 +11,8 @@ const app = express();
 app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/', router);
+
+app.use('/api', router);
 
 app.listen(3000, () => {
   console.log('Serveur démarré sur http://localhost:3000');
