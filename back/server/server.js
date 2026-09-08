@@ -4,12 +4,13 @@ import { readFileSync } from 'fs';
 import router from './route.js';
 import pool from './db.js';
 import 'dotenv/config';
+import cors from 'cors';
 
 const swaggerDocument = JSON.parse(readFileSync('./swagger.json', 'utf8'));
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', router);
 
