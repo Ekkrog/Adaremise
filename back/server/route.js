@@ -4,6 +4,7 @@ import categorieRouter from './routes/categories.js';
 import personneRouter from './routes/personnes.js';
 import depotRouter from './routes/depots.js';
 import statRouter from './routes/stats.js';
+import benevolesRouter from './routes/benevoles.js'
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.use('/categories', categorieRouter)
 router.use('/personnes', personneRouter)
 router.use('/depots', depotRouter)
 router.use('/stats', statRouter)
+router.use('/benevoles', benevolesRouter)
 
 // GET /
 router.get('/', async (req, res) => {
