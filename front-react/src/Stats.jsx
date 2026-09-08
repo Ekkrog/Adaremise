@@ -36,7 +36,11 @@ function Stats({}) {
             <p>Poids total reçu</p>
             <p>{stats.poids_total_recu}</p>
         </div>
-        
+
+        <div className="carte_stats">   
+          <p>poids détourné de la déchetterie</p>   
+          <p>{stats.poids_detourne_dechetterie}</p>
+        </div>
       </div>
     </>
   )
