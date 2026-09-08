@@ -1,0 +1,4 @@
+@baseUrl = http://localhost:3000/api/benevoles
+
+### GET liste tous les bénévoles (200)
+GET {{baseUrl}}/
