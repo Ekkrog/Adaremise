@@ -4,8 +4,8 @@
   "description": "Conception et implémentation de la base de données pour **La Remise**, une ressourcerie associative. Ce dépôt est le socle du projet fullstack",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server.js",
-    "dev": "nodemon ./server.js"
+    "start": "node ./server/server.js",
+    "dev": "nodemon ./server/server.js"
   },
   "repository": {
     "type": "git",

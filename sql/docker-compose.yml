@@ -13,23 +13,8 @@ services:
       - db_data:/var/lib/postgresql/data
       # Ces scripts ne s'exécutent automatiquement que si le volume est vide
       # (première initialisation du conteneur).
-      - ./sql/migration_up.sql:/docker-entrypoint-initdb.d/01_migration_up.sql:ro
-      - ./sql/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U laremise -d la_remise"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  adminer:
-    image: adminer
-    container_name: la_remise_adminer
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-
+      - ./migration_up.sql:/docker-entrypoint-initdb.d/01_migration_up.sql:ro
+      - ./seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+    
 volumes:
   db_data:
