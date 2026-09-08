@@ -1,0 +1,529 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API La Remise",
+    "version": "1.0.0",
+    "description": "API de gestion de la ressourcerie La Remise"
+  },
+  "paths": {
+    "/objets": {
+      "get": {
+        "summary": "Liste tous les objets",
+        "responses": {
+          "200": { "description": "La liste des objets" }
+        }
+      },
+      "post": {
+        "summary": "Crée un nouvel objet",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "libelle",
+                  "poids_kg",
+                  "etat_arrivee",
+                  "categorie_id",
+                  "depot_id"
+                ],
+                "properties": {
+                  "libelle": { "type": "string" },
+                  "poids_kg": { "type": "number" },
+                  "etat_arrivee": {
+                    "type": "string",
+                    "enum": ["bon_etat", "a_reparer", "hors_service"]
+                  },
+                  "categorie_id": { "type": "integer" },
+                  "depot_id": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Objet créé" },
+          "400": { "description": "Champs manquants ou invalides" }
+        }
+      }
+    },
+    "/objets/{id}": {
+      "get": {
+        "summary": "Récupère un objet par son id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "L'objet correspondant" },
+          "404": { "description": "Objet introuvable" }
+        }
+      },
+      "put": {
+        "summary": "Modifie un objet existant",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "libelle": { "type": "string" },
+                  "poids_kg": { "type": "number" },
+                  "etat_arrivee": {
+                    "type": "string",
+                    "enum": ["bon_etat", "a_reparer", "hors_service"]
+                  },
+                  "statut": {
+                    "type": "string",
+                    "enum": [
+                      "arrive",
+                      "en_reparation",
+                      "en_rayon",
+                      "vendu",
+                      "recycle"
+                    ]
+                  },
+                  "prix": { "type": "number" },
+                  "date_mis_rayon": { "type": "string", "format": "date" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Objet mis à jour" },
+          "404": { "description": "Objet introuvable" }
+        }
+      },
+      "delete": {
+        "summary": "Supprime un objet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Objet supprimé" },
+          "404": { "description": "Objet introuvable" }
+        }
+      }
+    },
+    "/depots": {
+      "get": {
+        "summary": "Liste tous les dépôts",
+        "responses": {
+          "200": { "description": "La liste des dépôts" }
+        }
+      },
+      "post": {
+        "summary": "Crée un nouveau dépôt",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["date_depot", "type", "objets_id"],
+                "properties": {
+                  "date_depot": { "type": "string", "format": "date" },
+                  "type": {
+                    "type": "string",
+                    "enum": ["boutique", "domicile"]
+                  },
+                  "objets_id": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Dépôt créé" },
+          "400": { "description": "Champs manquants ou invalides" }
+        }
+      }
+    },
+    "/depots/{id}": {
+      "get": {
+        "summary": "Récupère un dépôt par son id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Le dépôt correspondant" },
+          "404": { "description": "Dépôt introuvable" }
+        }
+      },
+      "put": {
+        "summary": "Modifie un dépôt existant",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date_depot": { "type": "string", "format": "date" },
+                  "type": {
+                    "type": "string",
+                    "enum": ["boutique", "domicile"]
+                  },
+                  "objets_id": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Dépôt mis à jour" },
+          "404": { "description": "Dépôt introuvable" }
+        }
+      },
+      "delete": {
+        "summary": "Supprime un dépôt",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Dépôt supprimé" },
+          "404": { "description": "Dépôt introuvable" }
+        }
+      }
+    },
+    "/personnes": {
+      "get": {
+        "summary": "Liste toutes les personnes",
+        "responses": {
+          "200": { "description": "La liste des personnes" }
+        }
+      },
+      "post": {
+        "summary": "Crée une nouvelle personne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nom", "prenom", "age"],
+                "properties": {
+                  "nom": { "type": "string" },
+                  "prenom": { "type": "string" },
+                  "age": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Personne créée" },
+          "400": { "description": "Champs manquants ou invalides" }
+        }
+      }
+    },
+    "/personnes/{id}": {
+      "get": {
+        "summary": "Récupère une personne par son id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "La personne correspondante" },
+          "404": { "description": "Personne introuvable" }
+        }
+      },
+      "put": {
+        "summary": "Modifie une personne existante",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string" },
+                  "prenom": { "type": "string" },
+                  "age": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Personne mise à jour" },
+          "404": { "description": "Personne introuvable" }
+        }
+      },
+      "delete": {
+        "summary": "Supprime une personne",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Personne supprimée" },
+          "404": { "description": "Personne introuvable" }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Liste toutes les catégories",
+        "responses": {
+          "200": { "description": "La liste des catégories" }
+        }
+      },
+      "post": {
+        "summary": "Crée une nouvelle catégorie",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["libelle"],
+                "properties": {
+                  "libelle": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Catégorie créée" },
+          "400": { "description": "Champs manquants ou invalides" }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "summary": "Récupère une catégorie par son id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "La catégorie correspondante" },
+          "404": { "description": "Catégorie introuvable" }
+        }
+      },
+      "put": {
+        "summary": "Modifie une catégorie existante",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "libelle": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Catégorie mise à jour" },
+          "404": { "description": "Catégorie introuvable" }
+        }
+      },
+      "delete": {
+        "summary": "Supprime une catégorie",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Catégorie supprimée" },
+          "404": { "description": "Catégorie introuvable" }
+        }
+      }
+    },
+    "/stats": {
+      "get": {
+        "summary": "Liste toutes les stats",
+        "responses": {
+          "200": { "description": "La liste des stats" }
+        }
+      },
+      "post": {
+        "summary": "Crée une nouvelle stat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "libelle",
+                  "poids_kg",
+                  "etat_arrivee",
+                  "categorie_id",
+                  "depot_id"
+                ],
+                "properties": {
+                  "libelle": { "type": "string" },
+                  "poids_kg": { "type": "number" },
+                  "etat_arrivee": {
+                    "type": "string",
+                    "enum": ["bon_etat", "a_reparer", "hors_service"]
+                  },
+                  "categorie_id": { "type": "integer" },
+                  "depot_id": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Stat créée" },
+          "400": { "description": "Champs manquants ou invalides" }
+        }
+      }
+    },
+    "/stats/{id}": {
+      "get": {
+        "summary": "Récupère une stat par son id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "La stat correspondante" },
+          "404": { "description": "Stat introuvable" }
+        }
+      },
+      "put": {
+        "summary": "Modifie une stat existante",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "libelle": { "type": "string" },
+                  "poids_kg": { "type": "number" },
+                  "etat_arrivee": {
+                    "type": "string",
+                    "enum": ["bon_etat", "a_reparer", "hors_service"]
+                  },
+                  "statut": {
+                    "type": "string",
+                    "enum": [
+                      "arrive",
+                      "en_reparation",
+                      "en_rayon",
+                      "vendu",
+                      "recycle"
+                    ]
+                  },
+                  "prix": { "type": "number" },
+                  "date_mise_rayon": { "type": "string", "format": "date" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Stat mise à jour" },
+          "404": { "description": "Stat introuvable" }
+        }
+      },
+      "delete": {
+        "summary": "Supprime une stat",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Stat supprimée" },
+          "404": { "description": "Stat introuvable" }
+        }
+      }
+    }
+  }
+}

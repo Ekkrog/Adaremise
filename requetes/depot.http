@@ -1,0 +1,49 @@
+@baseUrl = http://localhost:3000/api/depots
+
+### POST enregistre un dépôt (201)
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+    "personne_id": 1,
+    "date_depot": "2026-09-08",
+    "type": "boutique"
+}
+
+### POST enregistre un dépôt avec des erreurs (400 bad request)
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+    "personne_id": "",
+    "date_depot": "",
+    "type": ""
+}
+
+### POST ajoute un objet à un dépôt (201)
+POST {{baseUrl}}/1/objets
+Content-Type: application/json
+
+{
+    "libelle": "Chaise en bois",
+    "poids_kg": 3.5,
+    "etat_arrivee": "bon_etat",
+    "categorie_id": 1
+}
+
+### POST ajoute un objet avec un état invalide (400 bad request)
+POST {{baseUrl}}/1/objets
+Content-Type: application/json
+
+{
+    "libelle": "Chaise en bois",
+    "poids_kg": 3.5,
+    "etat_arrivee": "n_importe_quoi",
+    "categorie_id": 1
+}
+
+### GET récupère un dépôt existant avec ses objets (200)
+GET {{baseUrl}}/1
+
+### GET récupère un dépôt inexistant (404)
+GET {{baseUrl}}/99999

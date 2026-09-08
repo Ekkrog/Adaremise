@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:3000/api/objets
+
+### GET liste tous les objets (200)
+GET {{baseUrl}}/
+
+### GET liste filtrée par statut (200)
+GET {{baseUrl}}/?statut=en_rayon
+
+### GET liste filtrée par catégorie (200)
+GET {{baseUrl}}/?categorie_id=1
+
+### GET liste filtrée par statut ET catégorie (200)
+GET {{baseUrl}}/?statut=en_rayon&categorie_id=1
+
+### GET récupère un objet existant (200)
+GET {{baseUrl}}/1
+
+### GET récupère un objet inexistant (404)
+GET {{baseUrl}}/99999
+
+### PATCH change le statut d'un objet (200)
+PATCH {{baseUrl}}/1/statut
+Content-Type: application/json
+
+{
+    "statut": "en_rayon",
+    "prix": 12.50
+}
+
+### PATCH avec une valeur de statut invalide (400 bad request)
+PATCH {{baseUrl}}/1/statut
+Content-Type: application/json
+
+{
+    "statut": "n_importe_quoi"
+}
+
+### PATCH sur un objet inexistant (404)
+PATCH {{baseUrl}}/99999/statut
+Content-Type: application/json
+
+{
+    "statut": "en_rayon"
+}

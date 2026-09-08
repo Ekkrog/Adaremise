@@ -1,0 +1,34 @@
+@baseUrl = http://localhost:3000/api/personnes
+
+### POST ajoute une personne (201)
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+    "nom": "Pendragon",
+    "prenom": "Arthur",
+    "telephone": "+33625415200",
+    "adherente": true
+}
+
+### POST ajoute une personne avec des erreurs (400 bad request)
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+    "nom": "",
+    "prenom": "",
+    "telephone": "",
+    "adherente": ""
+}
+
+### POST ajoute une personne sans adherente (201 : valeur par défaut)
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+    "nom": "Pendragon",
+    "prenom": "Arthur",
+    "telephone": "+33625415200",
+    "adherente": ""
+}
