@@ -1,10 +1,10 @@
 import express from 'express';
-import pool from '../db.js';
+import { pool } from '../db.js';
 
-const router = express.Router();
+export const objetRouter = express.Router();
 
 // GET /objets — liste des objets, avec filtres optionnels statut et categorie_id
-router.get('/', async (req, res) => {
+objetRouter.get('/', async (req, res) => {
   const { statut, categorie_id } = req.query;
 
   try {
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET /objets/:id — un objet, sa catégorie, son dépôt et sa donatrice
-router.get('/:id', async (req, res) => {
+objetRouter.get('/:id', async (req, res) => {
   try {
     const result = await pool.query(
       `SELECT o.id, o.libelle, o.poids_kg, o.etat_arrivee, o.statut, o.prix,
@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // PATCH /objets/:id/statut — fait évoluer le statut d'un objet
-router.patch('/:id/statut', async (req, res) => {
+objetRouter.patch('/:id/statut', async (req, res) => {
   const { statut, prix } = req.body;
 
   const statutsValides = ['arrive', 'en_reparation', 'en_rayon', 'vendu', 'recycle'];
@@ -75,5 +75,3 @@ router.patch('/:id/statut', async (req, res) => {
     res.status(500).json({ erreur: 'Erreur serveur' });
   }
 });
-
-export default router;

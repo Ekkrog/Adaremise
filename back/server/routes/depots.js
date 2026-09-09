@@ -1,10 +1,10 @@
 import express from 'express';
-import pool from '../db.js';
+import { pool } from '../db.js';
 
-const router = express.Router();
+export const depotRouter = express.Router();
 
 // GET /depots — liste tous les dépôts
-router.get('/', async (req, res) => {
+depotRouter.get('/', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM depot ORDER BY id');
     res.json(result.rows);
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET /depots/:id — un dépôt, sa donatrice, et ses objets
-router.get('/:id', async (req, res) => {
+depotRouter.get('/:id', async (req, res) => {
   try {
     const depotResult = await pool.query(
       `SELECT d.id, d.date_depot, d.type,
@@ -46,7 +46,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST /depots — enregistre un dépôt
-router.post('/', async (req, res) => {
+depotRouter.post('/', async (req, res) => {
   const { personne_id, date_depot, type } = req.body;
 
   if (!personne_id || !date_depot || !type) {
@@ -75,7 +75,7 @@ router.post('/', async (req, res) => {
 });
 
 // POST /depots/:id/objets — ajoute un objet à un dépôt existant
-router.post('/:id/objets', async (req, res) => {
+depotRouter.post('/:id/objets', async (req, res) => {
   const { libelle, poids_kg, etat_arrivee, categorie_id } = req.body;
 
   if (!libelle || !poids_kg || !etat_arrivee || !categorie_id) {
@@ -106,5 +106,3 @@ router.post('/:id/objets', async (req, res) => {
     res.status(500).json({ erreur: 'Erreur serveur' });
   }
 });
-
-export default router;
