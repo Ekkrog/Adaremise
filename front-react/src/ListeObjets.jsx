@@ -4,7 +4,9 @@ useEffect (() => {
 function ListeObjets() {
   const [objet, setObjet] = useState([]);
 
-  const chargerObjets = async () => {
+
+  useEffect(() => {
+    const chargerObjets = async () => {
     try {
       const reponse = await fetch("http://localhost:3000/api/objets");
       const objets = await reponse.json();
@@ -15,9 +17,10 @@ function ListeObjets() {
       console.error("Erreur de chargement :", erreur.message);
     }
   };
-
-chargerObjets();
-}, [])
+  
+  chargerObjets();
+  }, [])
+  
 
   return (
     <>
