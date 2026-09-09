@@ -23,6 +23,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={ connecte ? <Home /> : <Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
         <Route path="/suivi-objet" element={<About />} />
+        <Route path="/stats" element={<Stats />} />
       </Routes>
     </BrowserRouter>
   );
