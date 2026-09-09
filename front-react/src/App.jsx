@@ -2,13 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Benevoles from './Benevoles.jsx'
+import SuiviObjets from './SuiviObjets.jsx';
 
-function Home() {
-  return <h2>Accueil</h2>;
-}
-
-function About() {
-  return <h2>À propos</h2>;
+function Home () {
+  
 }
 
 export default function App() {
@@ -22,7 +19,7 @@ export default function App() {
       </nav>
       <Routes>
         <Route path="/" element={ connecte ? <Home /> : <Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
-        <Route path="/suivi-objet" element={<About />} />
+        <Route path="/suivi-objet/:id" element={<SuiviObjets />} />
       </Routes>
     </BrowserRouter>
   );
