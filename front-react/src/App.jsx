@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Benevoles from './Benevoles.jsx'
+import Stats from './Stats.jsx'
 
 function Home() {
   return <h2>Accueil</h2>;
