@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Objet from "./Objet.jsx"
 
 function ListeObjets() {
   const [objet, setObjet] = useState([]);
@@ -18,22 +19,11 @@ function ListeObjets() {
   
   chargerObjets();
   }, [])
-  
+
+
 
   return (
-    <>
-      <section className="afficherObjets">
-        {objet.map((item) => (
-          <ul className="ListeObjets">
-            <li key={item.id} objet={item}>
-              <p> nom : {item.libelle}</p>
-              <p> prix : {item.prix}</p>
-              <p> statut : {item.statut} </p>
-            </li>
-          </ul>
-        ))}
-      </section>
-    </>
+      <Objet objets={objet}/>
   );
 }
 
