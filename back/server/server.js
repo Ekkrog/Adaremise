@@ -5,7 +5,6 @@ import router from './route.js';
 import pool from './db.js';
 import cors from 'cors';
 import 'dotenv/config';
-import cors from 'cors';
 
 const swaggerDocument = JSON.parse(readFileSync('./swagger.json', 'utf8'));
 
