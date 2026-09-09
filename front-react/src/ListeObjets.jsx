@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+useEffect (() => {
 function ListeObjets() {
   const [objet, setObjet] = useState([]);
 
@@ -10,13 +11,13 @@ function ListeObjets() {
 
       setObjet(objets);
       console.log(objet);
-      
     } catch (erreur) {
       console.error("Erreur de chargement :", erreur.message);
     }
   };
-  
-  chargerObjets();
+
+chargerObjets();
+}, [])
 
   return (
     <>
@@ -33,6 +34,6 @@ function ListeObjets() {
       </section>
     </>
   );
-};
+}
 
 export default ListeObjets;
