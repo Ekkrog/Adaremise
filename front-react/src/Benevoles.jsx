@@ -29,7 +29,7 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
     <>
         <select onChange={(e) => {setBenevoleChoisi(e.target.value)}} className='select'>
             {listeBenevoles.map((b) => {
-                return <option key={b.id} value={b.id}>{b.nom} {b.prenom}</option>
+                return <option key={b.id} value={b.nom + " " + b.prenom}>{b.nom} {b.prenom}</option>
             })}
         </select>
 
