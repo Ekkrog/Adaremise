@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import Stats from './Stats.jsx'
 import './App.css'
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Stats stats={stats} />
+      <Stats/>
 
 
     </>
