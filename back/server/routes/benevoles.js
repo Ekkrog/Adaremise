@@ -1,10 +1,10 @@
 import express from 'express';
-import pool from '../db.js';
+import { pool } from '../db.js';
 
-const router = express.Router();
+export const benevolesRouter = express.Router();
 
 // GET /benevoles — liste tous les bénévoles
-router.get('/', async (req, res) => {
+benevolesRouter.get('/', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM benevole ORDER BY id');
     res.status(200).json(rows);
@@ -14,4 +14,3 @@ router.get('/', async (req, res) => {
   }
 });
 
-export default router;
