@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function ListeObjets() {
-  const [objet, setObjet] = useState({});
+  const [objet, setObjet] = useState([]);
 
   const chargerObjets = async () => {
     try {
