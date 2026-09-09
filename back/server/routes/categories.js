@@ -1,10 +1,10 @@
 import express from 'express';
-import pool from '../db.js';
+import { pool } from '../db.js';
 
-const router = express.Router();
+export const categorieRouter = express.Router();
 
 // GET /categories — liste toutes les catégories
-router.get('/', async (req, res) => {
+categorieRouter.get('/', async (req, res) => {
   try {
     const result = await pool.query('SELECT id, libelle FROM categorie ORDER BY id');
     res.json(result.rows);
@@ -14,4 +14,3 @@ router.get('/', async (req, res) => {
   }
 });
 
-export default router;

@@ -1,10 +1,10 @@
 import express from "express";
-import pool from "../db.js";
+import { pool } from "../db.js";
 
-const router = express.Router();
+export const personneRouter = express.Router();
 
 // GET /personnes — liste toutes les personnes
-router.get("/", async (req, res) => {
+personneRouter.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM personne ORDER BY id");
     res.json(result.rows);
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET /personnes/:id — récupère une seule personne
-router.get("/:id", async (req, res) => {
+personneRouter.get("/:id", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM personne WHERE id = $1", [
       req.params.id,
@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /personnes — crée une personne (donatrice)
-router.post("/", async (req, res) => {
+personneRouter.post("/", async (req, res) => {
   const { nom, prenom, telephone, adherente } = req.body;
 
   if (!nom || !prenom) {
@@ -53,5 +53,3 @@ router.post("/", async (req, res) => {
     res.status(500).json({ erreur: "Erreur serveur" });
   }
 });
-
-export default router;
