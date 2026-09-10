@@ -1,10 +1,10 @@
 import express from 'express';
-import pool from '../db.js';
+import {pool} from '../db.js';
 
-const router = express.Router();
+export const statRouter = express.Router();
 
 // GET /stats — objets par statut, poids total reçu, poids détourné de la déchetterie
-router.get('/', async (req, res) => {
+statRouter.get('/', async (req, res) => {
   try {
     const parStatut = await pool.query('SELECT statut, COUNT(*) FROM objet GROUP BY statut');
     const poidsTotal = await pool.query('SELECT SUM(poids_kg) FROM objet');
@@ -20,5 +20,3 @@ router.get('/', async (req, res) => {
     res.status(500).json({ erreur: 'Erreur serveur' });
   }
 });
-
-export default router;
