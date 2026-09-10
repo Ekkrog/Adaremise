@@ -1,21 +1,19 @@
-import "./Objet.css"
+import "./Objet.css";
 
-function Objet ({objets}) {
-    return (
-        <>
-        <section className="afficherObjets">
+function Objet({ objets }) {
+  return (
+    <section className="afficherObjets">
+      <ul className="Objet">
         {objets.map((item) => (
-          <ul className="Objet">
-            <li key={item.id} objet={item}>
-              <p> {item.libelle}</p>
-              <p className={`statut-${item.statut}`}> {item.statut} </p>
-              <p> {item.prix} € </p>
-            </li>
-          </ul>
+          <li key={item.id}>
+            <p> {item.libelle}</p>
+            <p className={`statut-${item.statut}`}> {item.statut} </p>
+            <p> {item.prix} € </p>
+          </li>
         ))}
-      </section>
-      </>
-    )
+      </ul>
+    </section>
+  );
 }
 
 export default Objet;
