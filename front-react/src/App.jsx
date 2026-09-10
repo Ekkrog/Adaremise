@@ -1,33 +1,46 @@
-import React from 'react';
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Benevoles from './Benevoles.jsx'
-import Stats from './Stats.jsx'
-import ListeObjets from './ListeObjets.jsx';
+import React from "react";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Benevoles from "./Benevoles.jsx";
+import ListeObjets from "./ListeObjets.jsx";
+import SuiviObjets from "./SuiviObjets.jsx";
+import Stats from "./Stats.jsx";
 
-function ListeObjets() {
-  return <h2>Accueil</h2>;
+function Home({benevoleChoisi}) {
+    return <h2>Bonjour {benevoleChoisi}</h2>;
 }
 
 function About() {
-  return <h2>À propos</h2>;
+    return <h2>À propos</h2>;
 }
 
 export default function App() {
-  const  [ connecte, setConnecte ]  = useState(false);
-  const  [ benevoleChoisi, setBenevoleChoisi ]  = useState(0);
+    const [connecte, setConnecte] = useState(false);
+    const [benevoleChoisi, setBenevoleChoisi] = useState(0);
 
-  return (
-    <BrowserRouter>
-      <nav>
-        <Link to="/">Accueil</Link> | <Link to="/suivi-objet">Suivi Objets</Link>
-      </nav>
-      <Routes>
-        <Route path="/objets" element={ connecte ? <ListeObjets /> : <Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
-        <Route path="/suivi-objet" element={<About />} />
-        <Route path="/stats" element={<Stats />} />
-
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <nav>
+                <Link to="/">Accueil</Link> |{" "}
+                <Link to="/objets">Liste Objets |{" "}</Link>
+                <Link to="/suivi-objet">Suivi Objets |{" "}</Link>
+                <Link to="/stats">Stats</Link>
+            </nav>
+            <Routes>
+                {connecte && 
+                    <>
+                        <Route path="/" element={  <Home benevoleChoisi={benevoleChoisi} />  } />
+                        <Route path="/objets" element={  <ListeObjets />  } />
+                        <Route path="/suivi" element={  <SuiviObjets />  } />
+                        <Route path="/stats" element={  <Stats />  } />
+                    </>
+                    
+                    
+                }
+                {!connecte && 
+                    <Route path="/*" element={<Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
+                }
+            </Routes>
+        </BrowserRouter>
+    );
 }
