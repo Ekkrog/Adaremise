@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import {getData} from "./assets/utils.js"
 
 const statuts = [
@@ -15,10 +15,12 @@ function Filtres() {
   
   const [categories, setCategories] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  
+  const location = useLocation();
+
+
   useEffect(() => {
     const getlisteCategories = async () => {
-      setCategories(await getData('categories'))
+      setCategories(await getData(location.pathname))
     };
     getlisteCategories();
   }, []);

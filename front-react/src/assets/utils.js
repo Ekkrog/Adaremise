@@ -9,8 +9,8 @@
  */
 export const getData = async (url, method = 'GET', data = null, customHeaders = {}) => {
     //création de l'url pour notre requête au serveur
-    const URLAPI = `http://localhost:3000/api/${url}`;
-
+    const URLAPI = `http://localhost:3000/api${url}`;
+    
     //création des options de la  requête (GET, POST, PUT, PATCH)
     const options = {
         method: method.toUpperCase(),
