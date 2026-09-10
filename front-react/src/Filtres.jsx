@@ -1,15 +1,22 @@
-import {useSearchParams} from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const categories = [
-  "Mobilier",
-  "Electroménager",
-  "Vaisselle",
-  "Textile",
-  "Livres",
-  "Jouets",
-  "Outillage",
-  "Décoration",
-];
+const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  const getlisteCategories = async () => {
+    try {
+      const reponse = await fetch("http://localhost:3000/api/categories");
+      const categories = await reponse.json();
+
+      setCategories(categories);
+      console.log(categories);
+    } catch (erreur) {
+      console.error("Erreur :", erreur.message);
+    }
+  };
+  getlisteCategories;
+}, []);
 
 const statuts = [
   { value: "tous", label: "Tous" },
@@ -20,27 +27,27 @@ const statuts = [
   { value: "vendu", label: "Vendu" },
 ];
 
-
 function Filtres() {
-const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
 
 
-// Claude-début
-const categoriesActives = searchParams.getAll("categorie")
-const statutActif = searchParams.get("statut") || "tous"
+  const categoriesActives = searchParams.getAll("categorie");
+  const statutActif = searchParams.get("statut") || "tous";
 
   const changerCategories = (e) => {
-    const selectionnees = Array.from(e.target.selectedOptions).map((o) => o.value);
- 
+    const selectionnees = Array.from(e.target.selectedOptions).map(
+      (o) => o.value,
+    );
+
     const params = new URLSearchParams(searchParams);
     params.delete("categorie");
     selectionnees.forEach((c) => params.append("categorie", c));
     setSearchParams(params);
   };
- 
+
   const changerStatut = (e) => {
     const statut = e.target.value;
- 
+
     const params = new URLSearchParams(searchParams);
     if (statut === "tous") {
       params.delete("statut");
@@ -49,9 +56,9 @@ const statutActif = searchParams.get("statut") || "tous"
     }
     setSearchParams(params);
   };
-//   Claude-fin
 
-    return (
+
+  return (
     <>
       <section className="filtreCategorie">
         <h3>Catégorie</h3>
@@ -63,7 +70,7 @@ const statutActif = searchParams.get("statut") || "tous"
           ))}
         </select>
       </section>
- 
+
       <section className="filtreStatut">
         <h3>Statut</h3>
         <select value={statutActif} onChange={changerStatut}>

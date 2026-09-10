@@ -25,8 +25,7 @@ function ListeObjets() {
 
   const categoriesActives = searchParams.getAll("categorie");
   const statutActif = searchParams.get("statut") || "tous";
-  
-  // complété par claude
+
   const objetsFiltres = objets.filter((item) => {
     const matchCategorie =
       categoriesActives.length === 0 ||
@@ -34,7 +33,6 @@ function ListeObjets() {
     const matchStatut = statutActif === "tous" || item.statut === statutActif;
     return matchCategorie && matchStatut;
   });
-  // fin de complétion par claude
 
   return (
     <>
