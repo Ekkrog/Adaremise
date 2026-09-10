@@ -5,6 +5,7 @@ import Benevoles from "./Benevoles.jsx";
 import ListeObjets from "./ListeObjets.jsx";
 import SuiviObjets from "./SuiviObjets.jsx";
 import Stats from "./Stats.jsx";
+import Objet from "./Objet.jsx";
 
 
 function Home({benevoleChoisi}) {
