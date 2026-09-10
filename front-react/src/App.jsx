@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams, useLocation } from "react-router-dom";
 import Benevoles from "./Benevoles.jsx";
 import ListeObjets from "./ListeObjets.jsx";
 import SuiviObjets from "./SuiviObjets.jsx";
@@ -15,16 +15,17 @@ function About() {
     return <h2>À propos</h2>;
 }
 
+
 export default function App() {
     const [connecte, setConnecte] = useState(false);
     const [benevoleChoisi, setBenevoleChoisi] = useState(0);
-
+    
     return (
         <BrowserRouter>
             <nav>
                 <Link to="/">Accueil</Link> |{" "}
                 <Link to="/objets">Liste Objets |{" "}</Link>
-                <Link to="/suivi-objet">Suivi Objets |{" "}</Link>
+                <Link to="/objets/1">Suivi Objets |{" "}</Link>
                 <Link to="/stats">Stats</Link>
             </nav>
             <Routes>
@@ -32,7 +33,7 @@ export default function App() {
                     <>
                         <Route path="/" element={  <Home benevoleChoisi={benevoleChoisi} />  } />
                         <Route path="/objets" element={  <ListeObjets />  } />
-                        <Route path="/suivi" element={  <SuiviObjets />  } />
+                        <Route path="/objets/:id" element={  <SuiviObjets />  } />
                         <Route path="/stats" element={  <Stats />  } />
                     </>
                     
