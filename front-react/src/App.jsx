@@ -7,6 +7,7 @@ import SuiviObjets from "./SuiviObjets.jsx";
 import Stats from "./Stats.jsx";
 import Objet from "./Objet.jsx";
 
+
 function Home({benevoleChoisi}) {
     return <h2>Bonjour {benevoleChoisi}</h2>;
 }

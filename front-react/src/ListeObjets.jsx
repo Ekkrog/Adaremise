@@ -1,29 +1,38 @@
 import { useEffect, useState } from "react";
-import Objet from "./Objet.jsx"
+import { useSearchParams } from "react-router-dom";
+import Objet from "./Objet.jsx";
+import Filtres from "./Filtres.jsx";
+import {getData} from "./assets/utils.js"
 
 function ListeObjets() {
-  const [objet, setObjet] = useState([]);
+  const [searchParams] = useSearchParams();
+  const [objets, setObjets] = useState([]);
 
   useEffect(() => {
     const chargerObjets = async () => {
-    try {
-      const reponse = await fetch("http://localhost:3000/api/objets");
-      const objets = await reponse.json();
+      setObjets(await getData('objets'))
+    };
 
-      setObjet(objets);
-      console.log(objet);
-    } catch (erreur) {
-      console.error("Erreur de chargement :", erreur.message);
-    }
-  };
-  
-  chargerObjets();
-  }, [])
+    chargerObjets();
+  }, []);
 
+  const categoriesActives = searchParams.getAll("categorie");
+  const statutActif = searchParams.get("statut") || "tous";
 
+  const objetsFiltres = objets.filter((item) => {
+    
+    const matchCategorie =
+      categoriesActives.length === 0 || //si pas de categorie selectionnée -> afficher tout
+      categoriesActives.includes(item.categorie); // si categorie select = objets filtrés par catégorie (plusieurs select possible)
+    const matchStatut = statutActif === "tous" || item.statut === statutActif; //
+    return matchCategorie && matchStatut;
+  });
 
   return (
-      <Objet objets={objet}/>
+    <>
+      <Filtres />
+      <Objet objets={objetsFiltres} />
+    </>
   );
 }
 

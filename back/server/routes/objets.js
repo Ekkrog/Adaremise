@@ -9,7 +9,7 @@ objetRouter.get('/', async (req, res) => {
 
   try {
     const result = await pool.query(
-      `SELECT o.id, o.libelle, o.statut, o.prix, c.libelle AS categorie
+      `SELECT o.*, c.libelle AS categorie
        FROM objet o
        JOIN categorie c ON c.id = o.categorie_id
        WHERE o.statut       = COALESCE($1::statut_objet, o.statut)
