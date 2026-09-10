@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import Objet from "./Objet.jsx";
 import Filtres from "./Filtres.jsx";
 import {getData} from "./assets/utils.js"
@@ -7,10 +7,11 @@ import {getData} from "./assets/utils.js"
 function ListeObjets() {
   const [searchParams] = useSearchParams();
   const [objets, setObjets] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     const chargerObjets = async () => {
-      setObjets(await getData('objets'))
+      setObjets(await getData(location.pathname))
     };
 
     chargerObjets();

@@ -12,7 +12,7 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
     
     useEffect(() => {
         const chargerDonnees = async () => {
-            const benevoles = await getData('benevoles/');
+            const benevoles = await getData('/benevoles/');
             console.log(benevoles);
             setListeBenevoles(benevoles);
         }
@@ -23,13 +23,17 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
   return (
     <>
         <select onChange={(e) => {setBenevoleChoisi(e.target.value)}} className='select'>
+            <option value=''>Qui êtes-vous ?</option>
             {listeBenevoles.map((b) => {
                 return <option key={b.id} value={b.nom + " " + b.prenom}>{b.nom} {b.prenom}</option>
             })}
         </select>
 
         <button onClick={() => {
-            setConnecte(true);
+            if(benevoleChoisi!=0){
+                setConnecte(true);
+            }
+            
         }}>Me connecter</button>
     </>
   )
