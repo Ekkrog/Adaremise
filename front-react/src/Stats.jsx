@@ -11,7 +11,7 @@ function Stats() {
           const mes_stats = await reponse.json()
           setStats(mes_stats)
       }
-     const intervalID = setInterval(chargerStats,2000)
+     const intervalID = setInterval(chargerStats,20000)
   
       chargerStats();
     }, [])
