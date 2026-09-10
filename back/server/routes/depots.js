@@ -47,17 +47,17 @@ depotRouter.get('/:id', async (req, res) => {
 
 // POST /depots — enregistre un dépôt
 depotRouter.post('/', async (req, res) => {
-  const { personne_id, date_depot, type } = req.body;
+  const { personne_id, nom, prenom, telephone, date_depot, type } = req.body;
 
-  if (!personne_id || !date_depot || !type) {
-    return res.status(400).json({
-      erreur: 'personne_id, date_depot et type sont requis',
-    });
+   if (!date_depot || !['boutique', 'domicile'].includes(type)) {
+    return res.status(400).json({ erreur: 'date_depot et type (boutique|domicile) sont requis' });
   }
 
-  const typesValides = ['boutique', 'domicile'];
-  if (!typesValides.includes(type)) {
-    return res.status(400).json({ erreur: 'type invalide' });
+  
+  if (!personne_id && !nom) {
+    return res.status(400).json({
+      erreur: 'personne_id ou nom est requis',
+    });
   }
 
   try {

@@ -22,10 +22,11 @@ function ListeObjets() {
 
   const objetsFiltres = objets.filter((item) => {
     
-    const matchCategorie =
-      categoriesActives.length === 0 || //si pas de categorie selectionnée -> afficher tout
-      categoriesActives.includes(item.categorie); // si categorie select = objets filtrés par catégorie (plusieurs select possible)
-    const matchStatut = statutActif === "tous" || item.statut === statutActif; //
+    const aucuneCategorieSelectionnee = categoriesActives.length === 0
+    const categorieSelectionnee = categoriesActives.includes(item.categorie);
+    const matchCategorie = aucuneCategorieSelectionnee || categorieSelectionnee
+    
+    const matchStatut = statutActif === "tous" || item.statut === statutActif; 
     return matchCategorie && matchStatut;
   });
 
