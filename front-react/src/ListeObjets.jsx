@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import Objet from "./Objet.jsx"
 
 function ListeObjets() {
   const [objet, setObjet] = useState([]);
-
 
   useEffect(() => {
     const chargerObjets = async () => {
@@ -12,7 +12,6 @@ function ListeObjets() {
 
       setObjet(objets);
       console.log(objet);
-      
     } catch (erreur) {
       console.error("Erreur de chargement :", erreur.message);
     }
@@ -20,23 +19,12 @@ function ListeObjets() {
   
   chargerObjets();
   }, [])
-  
+
+
 
   return (
-    <>
-      <section className="afficherObjets">
-        {objet.map((item) => (
-          <ul className="ListeObjets">
-            <li key={item.id} objet={item}>
-              <p> nom : {item.libelle}</p>
-              <p> prix : {item.prix}</p>
-              <p> statut : {item.statut} </p>
-            </li>
-          </ul>
-        ))}
-      </section>
-    </>
+      <Objet objets={objet}/>
   );
-};
+}
 
 export default ListeObjets;
