@@ -23,7 +23,6 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
   return (
     <>
         <select onChange={(e) => {setBenevoleChoisi(e.target.value)}} className='select'>
-            <option value="">Qui êtes vous ?</option>
             {listeBenevoles.map((b) => {
                 return <option key={b.id} value={b.nom + " " + b.prenom}>{b.nom} {b.prenom}</option>
             })}
@@ -31,7 +30,6 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
 
         <button onClick={() => {
             setConnecte(true);
-            
         }}>Me connecter</button>
     </>
   )

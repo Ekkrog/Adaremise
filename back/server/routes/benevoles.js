@@ -6,7 +6,7 @@ export const benevolesRouter = express.Router();
 // GET /benevoles — liste tous les bénévoles
 benevolesRouter.get('/', async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT * FROM benevole ORDER BY id');
+    const { rows } = await pool.query('SELECT * FROM benevole ORDER BY nom, prenom');
     res.status(200).json(rows);
   } catch (err) {
     console.error(err);
