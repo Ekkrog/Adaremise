@@ -1,22 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
-const [categories, setCategories] = useState([]);
-
-useEffect(() => {
-  const getlisteCategories = async () => {
-    try {
-      const reponse = await fetch("http://localhost:3000/api/categories");
-      const categories = await reponse.json();
-
-      setCategories(categories);
-      console.log(categories);
-    } catch (erreur) {
-      console.error("Erreur :", erreur.message);
-    }
-  };
-  getlisteCategories;
-}, []);
+import {getData} from "./assets/utils.js"
 
 const statuts = [
   { value: "tous", label: "Tous" },
@@ -28,7 +12,16 @@ const statuts = [
 ];
 
 function Filtres() {
+  
+  const [categories, setCategories] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  
+  useEffect(() => {
+    const getlisteCategories = async () => {
+      setCategories(await getData('categories'))
+    };
+    getlisteCategories();
+  }, []);
 
 
   const categoriesActives = searchParams.getAll("categorie");
@@ -64,8 +57,8 @@ function Filtres() {
         <h3>Catégorie</h3>
         <select multiple value={categoriesActives} onChange={changerCategories}>
           {categories.map((categorie) => (
-            <option key={categorie} value={categorie}>
-              {categorie}
+            <option key={categorie} value={categories.id}>
+              {categorie.libelle}
             </option>
           ))}
         </select>
