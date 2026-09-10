@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Benevoles from './Benevoles.jsx'
+import Stats from './Stats.jsx'
 import ListeObjets from './ListeObjets.jsx';
 
 function ListeObjets() {
@@ -24,6 +25,7 @@ export default function App() {
       <Routes>
         <Route path="/objets" element={ connecte ? <ListeObjets /> : <Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
         <Route path="/suivi-objet" element={<About />} />
+        <Route path="/stats" element={<Stats />} />
 
       </Routes>
     </BrowserRouter>
