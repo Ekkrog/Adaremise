@@ -1,28 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Benevoles.css'
-import { useEffect } from 'react';
+import { getData } from './assets/utils.js';
+import { useLocation, useParams } from 'react-router-dom';
 
 function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
 
     const [ listeBenevoles, setListeBenevoles ] = useState([]);
+    const location = useLocation();
+    console.log(location.pathname);
+
     
-
     useEffect(() => {
-
-        const getlisteBenevoles = async () => {
-            try{
-                const response = await fetch("http://localhost:3000/api/benevoles");
-                const maRep = await response.json();
-                
-                setListeBenevoles(maRep);
-                console.log(listeBenevoles)
-            }
-            catch(error){
-                console.error("ça marche pas", error);
-            }
+        const chargerDonnees = async () => {
+            const benevoles = await getData('benevoles/');
+            console.log(benevoles);
+            setListeBenevoles(benevoles);
         }
-
-        getlisteBenevoles();
+        
+        chargerDonnees();
     }, [])
 
   return (
