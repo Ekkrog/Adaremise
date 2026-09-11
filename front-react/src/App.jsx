@@ -1,44 +1,38 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams, useLocation } from "react-router-dom";
 import Benevoles from "./Benevoles.jsx";
 import ListeObjets from "./ListeObjets.jsx";
 import SuiviObjets from "./SuiviObjets.jsx";
 import Stats from "./Stats.jsx";
-import NouveauDepot from "./NouveauDepot.jsx";
+import Objet from "./Objet.jsx";
+import Header from "./Header.jsx";
+import './App.css';
+import './variables.css';
 
 
 function Home({benevoleChoisi}) {
-    return <h2>Bonjour {benevoleChoisi}</h2>;
-}
-
-function About() {
-    return <h2>À propos</h2>;
+    return <div className="accueil"><h2>Bonjour <span> {benevoleChoisi}</span></h2></div>;
 }
 
 export default function App() {
     const [connecte, setConnecte] = useState(false);
     const [benevoleChoisi, setBenevoleChoisi] = useState(0);
-
+    
     return (
+        
         <BrowserRouter>
 
-         {
+        {
             connecte && 
-            <nav>
-                <Link to="/">Accueil</Link> |{" "}
-                <Link to="/objets">Liste Objets |{" "}</Link>
-                <Link to="/depot" >Nouveau Depot| {" "}</Link>
-                <Link to="/objets/1">Suivi Objets |{" "}</Link>
-                <Link to="/stats">Stats</Link>
-            </nav>
+                <Header />
         }
+            
             <Routes>
                 {connecte && 
                     <>
                         <Route path="/" element={  <Home benevoleChoisi={benevoleChoisi} />  } />
                         <Route path="/objets" element={  <ListeObjets />  } />
-                        <Route path="/depot" element={ <NouveauDepot /> } />
                         <Route path="/objets/:id" element={  <SuiviObjets />  } />
                         <Route path="/stats" element={  <Stats />  } />
                     </>
@@ -50,5 +44,6 @@ export default function App() {
                 }
             </Routes>
         </BrowserRouter>
+
     );
 }

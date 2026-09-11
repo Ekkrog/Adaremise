@@ -1,4 +1,5 @@
 import "./Objet.css";
+import "./variables.css"
 import { Link } from 'react-router-dom';
 
 const date = (valeur) => (valeur ? valeur.slice(0,10) : "")

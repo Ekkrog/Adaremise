@@ -27,7 +27,7 @@
 /* zone toujours visible (aperçu cliquable) */
 .Objet summary {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 0.9rem 1.1rem;
@@ -92,28 +92,27 @@
 .Objet details > p:last-of-type {
   padding-bottom: 0.9rem;
 }
-
 .statut-recycle {
-  background: #eaf3de;
-  color: #27500a;
+  background: var(--creme);
+  color:var(--green-dark);
 }
 
 .statut-vendu {
-  background: #fcebeb;
-  color: #791f1f;
+  background: var(--creme);
+  color: var(--green-light);
 }
 
 .statut-en_reparation {
-  background: #faeeda;
-  color: #854f0b;
+  background: var(--creme);
+  color: var(--brown);
 }
 
 .statut-en_rayon {
-  background: #e6f1fb;
-  color: #185fa5;
+  background: var(--creme);
+  color: var(--yellow-ocre);
 }
 
 .statut-arrive {
-  background: #e6f1fb;
-  color: #db0aad;
+  background: var(--creme);
+  color: var(--red);
 }

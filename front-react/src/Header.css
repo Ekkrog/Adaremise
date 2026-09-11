@@ -1,0 +1,45 @@
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5rem;
+    color: var(--creme);
+    font-weight: 600;
+    margin-top: 10px;
+    min-width: 100vw;
+    font-family: var(--montserrat);
+    border-bottom: 3px solid var(--green-dark);
+    
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo{
+
+    margin-top: 40px;
+    height: 75px;
+}
+
+.link{
+    position: relative;
+    height: 50px;
+    border: 3px solid var(--green-dark);
+    background-color: var(--green-dark);
+    border-radius: 20px 20px 0 0;
+    padding:10px 10px 0 10px;
+    margin:50px 50px 0 50px;
+}
+
+.link:hover{
+    border-color:var(--green-light);
+    background-color: var(--green-light);
+}
+
+.link:active{
+    border: 3px solid var(--green-dark);
+    background-color: var(--green-dark);
+    color: var(--green-light);
+}
