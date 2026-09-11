@@ -9,28 +9,55 @@ import './variables.css';
 function ListeObjets() {
   const [searchParams] = useSearchParams();
   const [objets, setObjets] = useState([]);
+  const [objetId, setObjetId] = useState (null)
   const location = useLocation();
+
+  const rechercheActive = searchParams.get("recherche") || "";
+  const rechercheId = /^\d+$/.test(rechercheActive);
 
   useEffect(() => {
     const chargerObjets = async () => {
-      setObjets(await getData(location.pathname))
+      const data = await getData(location.pathname)
+      setObjets(Array.isArray(data) ? data : [])
     };
 
     chargerObjets();
-  }, []);
+  }, [location.pathname]);
 
+  useEffect(() => {
+    const chercherId = async () => {
+      if (rechercheId && rechercheActive !== "") {
+        const res = await getData(`/objets/${rechercheActive}`);
+       if (res && !res.erreur) {
+        setObjetId([res]);
+      } else {
+        setObjetId([]);
+      } 
+    } else {
+        setObjetId(null);
+      }
+    }
+    chercherId()
+  }, [rechercheActive, rechercheId])
+
+const filtreRecherche = (liste) => {
   const categoriesActives = searchParams.getAll("categorie");
   const statutActif = searchParams.get("statut") || "tous";
+  const texteRecherche = rechercheActive.toLowerCase()
 
-  const objetsFiltres = objets.filter((item) => {
-    
-    const aucuneCategorieSelectionnee = categoriesActives.length === 0
-    const categorieSelectionnee = categoriesActives.includes(item.categorie);
-    const matchCategorie = aucuneCategorieSelectionnee || categorieSelectionnee
-    
+  return liste.filter((item) => {
+    const aucuneCategorie = categoriesActives.length === 0
+    const matchCategorie = aucuneCategorie || categoriesActives.includes(item.categorie);
+
     const matchStatut = statutActif === "tous" || item.statut === statutActif; 
-    return matchCategorie && matchStatut;
+
+    const matchRecherche = rechercheId || texteRecherche === "" || item.libelle.toLowerCase().includes(texteRecherche);
+
+    return matchCategorie && matchStatut && matchRecherche;
   });
+}
+
+const objetsFiltres = objetId !== null ? objetId : filtreRecherche(objets);
 
   return (
     <>

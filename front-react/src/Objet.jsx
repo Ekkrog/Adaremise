@@ -2,6 +2,8 @@ import "./Objet.css";
 import "./variables.css"
 import { Link } from 'react-router-dom';
 
+const date = (valeur) => (valeur ? valeur.slice(0,10) : "")
+
 function Objet({ objets }) {
   
   return (
@@ -16,10 +18,11 @@ function Objet({ objets }) {
                 <p> {item.prix} € </p>
                 <Link to={`/objets/${item.id}`}>✎</Link>
               </summary>
-              <p>{item.poids_kg} kg</p>
-              <p>{item.etat_arrivee}</p>
-              <p>{item.date_mise_rayon}</p>
-              <p>{item.categorie}</p>
+              <p>id : {item.id}</p>
+              <p>poids : {item.poids_kg} kg</p>
+              <p>état : {item.etat_arrivee}</p>
+              <p>date mise en rayon: {date(item.date_mise_rayon)}</p>
+              <p>catégorie : {item.categorie}</p>
             </details>
           </li>
         ))}

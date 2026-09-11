@@ -17,10 +17,9 @@ function Filtres() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
-
   useEffect(() => {
     const getlisteCategories = async () => {
-      setCategories(await getData('/categories'))
+      setCategories(await getData("/categories"))
     };
     getlisteCategories();
   }, []);
@@ -28,6 +27,7 @@ function Filtres() {
 
   const categoriesActives = searchParams.getAll("categorie");
   const statutActif = searchParams.get("statut") || "tous";
+  const rechercheActive = searchParams.get("recherche") || ""
 
   const changerCategories = (event) => {
     const optionsSelectionnees = Array.from(event.target.selectedOptions).map(
@@ -52,9 +52,30 @@ function Filtres() {
     setSearchParams(params);
   };
 
+  const changerRecherche = (event) => {
+    const valeur = event.target.value
+    const params = new URLSearchParams(searchParams);
+
+    if (valeur.trim()=== "") {
+      params.delete("recherche")
+    } else {
+		params.set("recherche", valeur)
+	} 
+	setSearchParams(params)
+  }
 
   return (
     <>
+	<section className="filtreRecherche">
+		<h3>Recherche</h3>
+		<input 
+			type="search"
+			placeholder="Rechercher par ID ou par nom"
+			value={rechercheActive}
+			onChange={changerRecherche}
+		/>
+	</section>
+
       <section className="filtreCategorie">
         <h3>Catégorie</h3>
         <select multiple value={categoriesActives} onChange={changerCategories}>
