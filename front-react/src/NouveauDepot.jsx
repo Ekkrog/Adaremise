@@ -1,9 +1,42 @@
 import { useState, useEffect } from "react";
 import { getData } from "./assets/utils.js";
 
+const libellesEtat = {
+  bon_etat: "Bon état",
+  a_reparer: "À réparer",
+  hors_service: "Hors service",
+};
+
+function libelleEtat(code) {
+  return libellesEtat[code] ?? code;
+}
+
+const libellesType = {
+  boutique: "Boutique",
+  domicile: "Domicile",
+};
+
+function libelleType(code) {
+  return libellesType[code] ?? code;
+}
+
+function formatDateFR(valeur) {
+  if (!valeur) return "";
+  const [annee, mois, jour] = valeur.split("-");
+  return `${jour}/${mois}/${annee}`;
+}
+
+function formatPrix(valeur) {
+  if (valeur === null || valeur === undefined || valeur === "") {
+    return "—";
+  }
+  return `${Number(valeur).toFixed(2)} €`;
+}
+
 function NouveauDepot() {
   const [categories, setCategories] = useState([]);
   const [depotId, setDepotId] = useState(null);
+  const [deposant, setDeposant] = useState(null);
   const [objets, setObjets] = useState([]);
   const [erreur, setErreur] = useState('')
 
@@ -18,6 +51,7 @@ function NouveauDepot() {
    */
   const enregistrerDepot = async (event) => {
     event.preventDefault();
+    setErreur('')
     const formulaire = event.target;
 
     const personne = await getData("/personnes", "POST", {
@@ -108,12 +142,13 @@ function NouveauDepot() {
 
         <input name="prix" type="number" placeholder="Prix (€)" />
         <button type="submit">Ajouter l'objet</button>
+        {erreur && <p>{erreur}</p>}
       </form>
 
       <ul>
         {objets.map((objet) => (
           <li key={objet.id}>
-            {objet.libelle} — {objet.poids_kg} kg
+            {objet.libelle} – {objet.poids_kg} kg
           </li>
         ))}
       </ul>
