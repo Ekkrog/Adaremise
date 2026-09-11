@@ -9,10 +9,19 @@ import Objet from "./Objet.jsx";
 import Header from "./Header.jsx";
 import './App.css';
 import './variables.css';
+import NouveauDepot from "./NouveauDepot.jsx";
+import logo from './assets/img/logo-la-remise.png';
 
 
 function Home({benevoleChoisi}) {
-    return <div className="accueil"><h2>Bonjour <span> {benevoleChoisi}</span></h2></div>;
+    return (
+    <>
+        <div className="accueil">
+            <h2>Bonjour <span> {benevoleChoisi}</span></h2>
+            <img src={logo}/>
+        </div>
+    </>
+    );
 }
 
 export default function App() {
@@ -34,6 +43,7 @@ export default function App() {
                         <Route path="/" element={  <Home benevoleChoisi={benevoleChoisi} />  } />
                         <Route path="/objets" element={  <ListeObjets />  } />
                         <Route path="/objets/:id" element={  <SuiviObjets />  } />
+                        <Route path="/depot" element={  <NouveauDepot />  } />
                         <Route path="/stats" element={  <Stats />  } />
                     </>
                     
