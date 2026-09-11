@@ -1,0 +1,59 @@
+.stats {
+    color: hsl(0, 0%, 0%);
+    Font-size: 1.5rem;
+    Text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1%;
+}
+
+.stats h1 {
+    color: hsl(234, 96%, 47%);
+    Font-size: 3rem;
+    Text-align: center;  
+}
+
+.stats div h2 {
+    color: hsl(240, 18%, 3%);
+    Font-size: 2rem;
+    Text-align: center;
+}
+
+.carte_stats {
+    background-color: hsl(59, 78%, 46%);
+    border-radius: 10px;
+padding: 1rem 0 1rem 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.status_stats {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.status_stats h2:nth-child(1) {
+  width: 100%;
+  flex-grow: 3;
+}
+
+.status_stats .carte_stats:nth-child(2),
+.status_stats .carte_stats:nth-child(3),
+.status_stats .carte_stats:nth-child(4),
+.status_stats .carte_stats:nth-child(5),
+.status_stats .carte_stats:nth-child(6) {
+  width: 15%;
+}
+
+.stats h1:nth-child(1),
+.stats div:nth-child(2){
+    width: 100%;
+    flex-grow: 0;
+}
+
+.stats div:nth-child(3),
+.stats div:nth-child(4){
+    width: 45%;
+}

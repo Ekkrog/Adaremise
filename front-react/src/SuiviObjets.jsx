@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom';
-import { getData } from './assets/utils.js';
+import { useState } from 'react'
 import './SuiviObjets.css'
 
 function SuiviObjets() {
     
+<<<<<<< HEAD
+
+    return (
+        <>
+
+=======
     const [monObjet, setMonObjet] = useState([]);
     const location = useLocation();
     
@@ -67,6 +71,7 @@ function SuiviObjets() {
                 envoyerDonnees();
 
             }}>Enregistrer</button>
+>>>>>>> cfe2770e9702f532ac3fe47b04f8cfeb62c0f39e
         </>
     )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link, useParams, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Benevoles from "./Benevoles.jsx";
 import ListeObjets from "./ListeObjets.jsx";
 import SuiviObjets from "./SuiviObjets.jsx";
@@ -16,11 +16,10 @@ function About() {
     return <h2>À propos</h2>;
 }
 
-
 export default function App() {
     const [connecte, setConnecte] = useState(false);
     const [benevoleChoisi, setBenevoleChoisi] = useState(0);
-    
+
     return (
         <BrowserRouter>
             <nav>
