@@ -20,7 +20,7 @@ function Filtres() {
 
   useEffect(() => {
     const getlisteCategories = async () => {
-      setCategories(await getData("/categories"))
+      setCategories(await getData(location.pathname))
     };
     getlisteCategories();
   }, []);

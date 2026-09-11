@@ -1,4 +1,5 @@
 import "./Objet.css";
+import { Link } from 'react-router-dom';
 
 function Objet({ objets }) {
   
@@ -12,6 +13,7 @@ function Objet({ objets }) {
                 <p> {item.libelle}</p>
                 <p className={`statut-${item.statut}`}> {item.statut} </p>
                 <p> {item.prix} € </p>
+                <Link to={`/objets/${item.id}`}>✎</Link>
               </summary>
               <p>{item.poids_kg} kg</p>
               <p>{item.etat_arrivee}</p>
