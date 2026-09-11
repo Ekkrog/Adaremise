@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-
-function ListeObjets() {
-  const [objet, setObjet] = useState([]);
-
-
-  useEffect(() => {
-    const chargerObjets = async () => {
-    try {
-      const reponse = await fetch("http://localhost:3000/api/objets");
-      const objets = await reponse.json();
-=======
 import { useSearchParams, useLocation } from "react-router-dom";
 import Objet from "./Objet.jsx";
 import Filtres from "./Filtres.jsx";
-import {getData} from "./assets/utils.js"
+import { getData } from "./assets/utils.js";
 
 function ListeObjets() {
   const [searchParams] = useSearchParams();
@@ -23,37 +11,29 @@ function ListeObjets() {
 
   useEffect(() => {
     const chargerObjets = async () => {
-      setObjets(await getData(location.pathname))
+      try {
+        const donnees = await getData(location.pathname);
+        setObjets(donnees);
+        console.log(donnees);
+      } catch (erreur) {
+        console.error("Erreur de chargement :", erreur.message);
+      }
     };
->>>>>>> cfe2770e9702f532ac3fe47b04f8cfeb62c0f39e
 
-      setObjet(objets);
-      console.log(objet);
-      
-    } catch (erreur) {
-      console.error("Erreur de chargement :", erreur.message);
-    }
-  };
-  
-  chargerObjets();
-  }, [])
-  
+    chargerObjets();
+  }, []);
 
   return (
     <>
       <section className="afficherObjets">
-        {objet.map((item) => (
-          <ul className="ListeObjets">
-            <li key={item.id} objet={item}>
-              <p> nom : {item.libelle}</p>
-              <p> prix : {item.prix}</p>
-              <p> statut : {item.statut} </p>
-            </li>
-          </ul>
-        ))}
+        <ul className="ListeObjets">
+          {objets.map((item) => (
+            <Objet key={item.id} objet={item} />
+          ))}
+        </ul>
       </section>
     </>
   );
-};
+}
 
 export default ListeObjets;
