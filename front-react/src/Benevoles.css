@@ -1,0 +1,33 @@
+:root{
+    --grey:#3ba45c;
+}
+
+.benevoles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: clamp(200px, 40%, 500px);
+    padding: 15px;
+    margin-right: auto;
+    margin-top: 300px;
+    margin-left: auto;
+    background-color: var(--grey);
+    color:black;
+    font-size: 1.25rem;
+    border-radius: 15px;
+    box-shadow: 4px 4px 7px black;
+
+}
+
+.select{
+    margin :10px;
+    width: 200px;
+    font-size: 1rem;
+    
+}
+
+button{
+    margin:10px;
+    width: max-content;
+    font-size: 1.25rem;
+}

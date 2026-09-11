@@ -5,6 +5,7 @@ function NouveauDepot() {
   const [categories, setCategories] = useState([]);
   const [depotId, setDepotId] = useState(null);
   const [objets, setObjets] = useState([]);
+  const [erreur, setErreur] = useState('')
 
   useEffect(() => {
     getData("/categories").then(setCategories);

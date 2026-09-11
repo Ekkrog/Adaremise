@@ -22,6 +22,9 @@ export default function App() {
 
     return (
         <BrowserRouter>
+
+         {
+            connecte && 
             <nav>
                 <Link to="/">Accueil</Link> |{" "}
                 <Link to="/objets">Liste Objets |{" "}</Link>
@@ -29,6 +32,7 @@ export default function App() {
                 <Link to="/objets/1">Suivi Objets |{" "}</Link>
                 <Link to="/stats">Stats</Link>
             </nav>
+        }
             <Routes>
                 {connecte && 
                     <>

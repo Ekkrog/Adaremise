@@ -1,16 +1,4 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-
-function ListeObjets() {
-  const [objet, setObjet] = useState([]);
-
-
-  useEffect(() => {
-    const chargerObjets = async () => {
-    try {
-      const reponse = await fetch("http://localhost:3000/api/objets");
-      const objets = await reponse.json();
-=======
 import { useSearchParams, useLocation } from "react-router-dom";
 import Objet from "./Objet.jsx";
 import Filtres from "./Filtres.jsx";
@@ -44,19 +32,10 @@ function ListeObjets() {
 
   return (
     <>
-      <section className="afficherObjets">
-        {objet.map((item) => (
-          <ul className="ListeObjets">
-            <li key={item.id} objet={item}>
-              <p> nom : {item.libelle}</p>
-              <p> prix : {item.prix}</p>
-              <p> statut : {item.statut} </p>
-            </li>
-          </ul>
-        ))}
-      </section>
+      <Filtres />
+      <Objet objets={objetsFiltres} />
     </>
   );
-};
+}
 
 export default ListeObjets;
