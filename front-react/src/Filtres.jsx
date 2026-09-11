@@ -20,7 +20,7 @@ function Filtres() {
 
   useEffect(() => {
     const getlisteCategories = async () => {
-      setCategories(await getData(location.pathname))
+      setCategories(await getData("/categories"))
     };
     getlisteCategories();
   }, []);
@@ -29,19 +29,19 @@ function Filtres() {
   const categoriesActives = searchParams.getAll("categorie");
   const statutActif = searchParams.get("statut") || "tous";
 
-  const changerCategories = (e) => {
-    const selectionnees = Array.from(e.target.selectedOptions).map(
-      (o) => o.value,
+  const changerCategories = (event) => {
+    const optionsSelectionnees = Array.from(event.target.selectedOptions).map(
+      (option) => option.value,
     );
 
     const params = new URLSearchParams(searchParams);
     params.delete("categorie");
-    selectionnees.forEach((c) => params.append("categorie", c));
+    optionsSelectionnees.forEach((categorie) => params.append("categorie", categorie));
     setSearchParams(params);
   };
 
-  const changerStatut = (e) => {
-    const statut = e.target.value;
+  const changerStatut = (event) => {
+    const statut = event.target.value;
 
     const params = new URLSearchParams(searchParams);
     if (statut === "tous") {
@@ -59,7 +59,7 @@ function Filtres() {
         <h3>Catégorie</h3>
         <select multiple value={categoriesActives} onChange={changerCategories}>
           {categories.map((categorie) => (
-            <option key={categorie} value={categories.id}>
+            <option key={categorie.id} value={categorie.libelle}>
               {categorie.libelle}
             </option>
           ))}

@@ -5,6 +5,8 @@ import Benevoles from "./Benevoles.jsx";
 import ListeObjets from "./ListeObjets.jsx";
 import SuiviObjets from "./SuiviObjets.jsx";
 import Stats from "./Stats.jsx";
+import NouveauDepot from "./NouveauDepot.jsx";
+
 
 function Home({benevoleChoisi}) {
     return <h2>Bonjour {benevoleChoisi}</h2>;
@@ -23,7 +25,8 @@ export default function App() {
             <nav>
                 <Link to="/">Accueil</Link> |{" "}
                 <Link to="/objets">Liste Objets |{" "}</Link>
-                <Link to="/suivi-objet">Suivi Objets |{" "}</Link>
+                <Link to="/depot" >Nouveau Depot| {" "}</Link>
+                <Link to="/objets/1">Suivi Objets |{" "}</Link>
                 <Link to="/stats">Stats</Link>
             </nav>
             <Routes>
@@ -31,7 +34,8 @@ export default function App() {
                     <>
                         <Route path="/" element={  <Home benevoleChoisi={benevoleChoisi} />  } />
                         <Route path="/objets" element={  <ListeObjets />  } />
-                        <Route path="/suivi" element={  <SuiviObjets />  } />
+                        <Route path="/depot" element={ <NouveauDepot /> } />
+                        <Route path="/objets/:id" element={  <SuiviObjets />  } />
                         <Route path="/stats" element={  <Stats />  } />
                     </>
                     
