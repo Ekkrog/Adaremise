@@ -40,7 +40,7 @@ function Stats() {
           <h2>Poids total</h2>
           <div className="carte_stats">
             <p className="titre_stats">Poids total reçu</p>
-            <p className="valeur_stats">{stats.poids_total_recu}</p>
+            <p className="valeur_stats">{stats.poids_total_recu} Kg</p>
           </div>
         </div>
 
@@ -48,7 +48,7 @@ function Stats() {
           <h2>Poids détourné</h2>
           <div className="carte_stats">
             <p className="titre_stats">Poids détourné </p>
-            <p className="valeur_stats">{stats.poids_detourne_dechetterie}</p>
+            <p className="valeur_stats">{stats.poids_detourne_dechetterie} Kg</p>
           </div>
         </div>
       </div>

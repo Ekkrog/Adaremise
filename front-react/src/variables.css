@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Comfortaa:wght@400;500;600;700&display=swap");
+
+:root{
+    --green-dark:#1B5E3B;
+    --green-light:#6FB05A;
+    --yellow-ocre:#E0B04F;
+    --brown:#8B6F52;
+    --creme:#F7F5EC;
+    --grey:#2F3A36;
+    --red:#c12a2a;
+    --montserrat:'Montserrat';
+    --comfortaa:'Comfortaa';
+}
+
+body{
+    background-color: var(--creme);
+}

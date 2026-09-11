@@ -3,6 +3,8 @@ import { useSearchParams, useLocation } from "react-router-dom";
 import Objet from "./Objet.jsx";
 import Filtres from "./Filtres.jsx";
 import {getData} from "./assets/utils.js"
+import './ListeObjets.css';
+import './variables.css';
 
 function ListeObjets() {
   const [searchParams] = useSearchParams();

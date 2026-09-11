@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './Benevoles.css'
 import { getData } from './assets/utils.js';
 import { useLocation, useParams } from 'react-router-dom';
+import './variables.css';
 
 function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
 
@@ -30,12 +31,12 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
                 })}
             </select>
 
-            <button onClick={() => {
+            <span className='button' onClick={() => {
                 if(benevoleChoisi!=0){
                     setConnecte(true);
                 }
                 
-            }}>Me connecter</button>
+            }}>Me connecter</span>
         </section>
 
     </>

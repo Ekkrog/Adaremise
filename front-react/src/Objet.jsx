@@ -1,4 +1,5 @@
 import "./Objet.css";
+import "./variables.css"
 import { Link } from 'react-router-dom';
 
 function Objet({ objets }) {
