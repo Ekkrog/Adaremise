@@ -10,7 +10,7 @@
     text-align: center;
     padding: 15px;
     margin-right: auto;
-    margin-top: 200px;
+    margin-top: 5%;
     margin-left: auto;
     color:var(--grey);
     font-size: 3rem;
@@ -19,4 +19,11 @@
 .accueil span{
     color: var(--green-light);
     font-weight: bolder;
+}
+
+
+.deco{
+    position: absolute;
+    top:0;
+    right: 0;
 }
