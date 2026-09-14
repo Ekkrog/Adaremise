@@ -1,0 +1,239 @@
+/* ==========================================
+   Conteneurs & Cartes Formulaires
+   ========================================== */
+
+/* Structure de la carte principale du dépôt */
+.nouveau-depot-container,
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    min-width: 350px;
+    padding: 25px 20px;
+    margin: 80px auto 40px auto;
+    background-color: var(--green-light);
+    color: var(--grey);
+    font-family: var(--montserrat);
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Titres des formulaires */
+form h3 {
+    color: var(--green-dark);
+    font-family: var(--comfortaa);
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Message de confirmation de dépôt */
+.depot-status {
+    text-align: center;
+    font-size: 1.25rem;
+    font-family: var(--comfortaa);
+    font-weight: bold;
+    color: var(--green-dark);
+    background-color: var(--creme);
+    padding: 12px 20px;
+    border-radius: 15px;
+    margin: 30px auto 10px auto;
+    width: fit-content;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   Champs de Saisie (Inputs & Selects)
+   ========================================== */
+
+form input,
+form select {
+    width: 80%;
+    max-width: 320px;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-family: var(--comfortaa);
+    color: var(--grey);
+    background-color: var(--creme);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+    border-color: var(--green-dark);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Personnalisation du style du select */
+form select,
+::picker(select) {
+    appearance: base-select;
+}
+
+form select option:hover,
+form select option:focus {
+    background-color: var(--green-light);
+    color: var(--yellow-ocre);
+}
+
+/* ==========================================
+   Boutons
+   ========================================== */
+
+form button[type="submit"] {
+    background-color: var(--yellow-ocre);
+    color: var(--green-dark);
+    margin-top: 20px;
+    width: auto;
+    font-size: 1.15rem;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-family: var(--montserrat);
+    font-weight: bold;
+    border: 3px solid var(--yellow-ocre);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+form button[type="submit"]:hover {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    border: 3px solid var(--yellow-ocre);
+}
+
+form button[type="submit"]:active {
+    background-color: var(--green-dark);
+    color: var(--yellow-ocre);
+    border: 3px solid var(--green-dark);
+}
+
+/* ==========================================
+   Messages d'erreur
+   ========================================== */
+
+.erreur-message {
+    color: #d9534f;
+    background-color: #f9dedc;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+    width: 80%;
+}
+
+/* ==========================================
+   Liste des Objets Ajoutés
+   ========================================== */
+
+.liste-objets {
+    width: 40%;
+    min-width: 350px;
+    margin: 20px auto 50px auto;
+    padding: 0;
+    list-style: none;
+}
+
+.liste-objets li {
+    background-color: var(--creme);
+    color: var(--green-dark);
+    font-family: var(--montserrat);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border-left: 5px solid var(--yellow-ocre);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================
+   Section & Conteneur de la liste d'objets
+   ========================================== */
+
+.objets-section {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 30px;
+}
+
+.objets-titre {
+    font-family: var(--comfortaa);
+    color: var(--green-dark);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.liste-objets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ==========================================
+   Cartes / Items de la liste (Éléments <li>)
+   ========================================== */
+
+.liste-objets li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--creme);
+    color: var(--grey);
+    padding: 12px 18px;
+    border-radius: 15px;
+    border-left: 6px solid var(--yellow-ocre);
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.liste-objets li:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Informations sur l'objet */
+.objet-nom {
+    font-family: var(--montserrat);
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--green-dark);
+}
+
+.objet-details {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: var(--comfortaa);
+    font-size: 0.95rem;
+}
+
+.objet-poids {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.objet-prix {
+    background-color: var(--yellow-ocre);
+    color: var(--green-dark);
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+}
