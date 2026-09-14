@@ -4,6 +4,7 @@ import Objet from "./Objet.jsx";
 import Filtres from "./Filtres.jsx";
 import {getData} from "./assets/utils.js"
 
+
 function ListeObjets() {
   const [searchParams] = useSearchParams();
   const [objets, setObjets] = useState([]);

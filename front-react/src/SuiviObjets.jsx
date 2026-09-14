@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import { getData } from './assets/utils.js'
 import './SuiviObjets.css'
+import { modifier_statut } from './assets/utils.js';
 
 function SuiviObjets() {
     
@@ -41,14 +42,14 @@ function SuiviObjets() {
             <label>Etat : </label>
                 <select onChange={(e) => {setNewEtat(e.target.value)}}>{etat_obj.map((etat) =>
                     {
-                        return etat === monObjet.etat_arrivee ? <option value={etat} selected>{etat}</option> : <option value={etat} >{etat}</option>
+                        return etat === monObjet.etat_arrivee ? <option value={modifier_statut(etat)} selected>{modifier_statut(etat)}</option> : <option value={modifier_statut(etat)} >{modifier_statut(etat)}</option>
                     }
                 )}
                 </select><br/>
             <label>Statut : </label>
                 <select  onChange={(e) => {setNewStatut(e.target.value)}}>{statut_obj.map((statut) =>
                     {
-                        return statut === monObjet.statut ? <option value={statut} selected>{statut}</option> : <option value={statut}>{statut}</option>
+                        return statut === monObjet.statut ? <option value={modifier_statut(statut)} selected>{modifier_statut(statut)}</option> : <option value={modifier_statut(statut)}>{modifier_statut(statut)}</option>
                     }
                 )}
                 </select><br/>

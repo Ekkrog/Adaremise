@@ -1,5 +1,6 @@
 import "./Objet.css";
 import { Link } from 'react-router-dom';
+import { modifier_statut } from "./assets/utils.js";
 
 function Objet({ objets }) {
   
@@ -11,7 +12,7 @@ function Objet({ objets }) {
             <details>
               <summary>
                 <p> {item.libelle}</p>
-                <p className={`statut-${item.statut}`}> {item.statut} </p>
+                <p className={`statut-${item.statut}`}> {modifier_statut(item.statut)} </p>
                 <p> {item.prix} € </p>
                 <Link to={`/objets/${item.id}`}>✎</Link>
               </summary>
