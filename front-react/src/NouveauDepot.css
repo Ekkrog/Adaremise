@@ -29,7 +29,7 @@ form h3 {
 }
 
 /* Message de confirmation de dépôt */
-.depot-status {
+.messages-depot {
     text-align: center;
     font-size: 1.25rem;
     font-family: var(--comfortaa);
@@ -42,6 +42,7 @@ form h3 {
     width: fit-content;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 /* ==========================================
    Champs de Saisie (Inputs & Selects)

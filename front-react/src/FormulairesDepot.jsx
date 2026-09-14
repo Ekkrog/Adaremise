@@ -34,8 +34,8 @@ export function FormulaireDepot({ onSubmit, erreur }) {
   return (
     <form onSubmit={onSubmit}>
       <h3>Enregistrer le dépôt</h3>
-      <input name="prenom" placeholder="Prénom" required />
       <input name="nom" placeholder="Nom" required />
+      <input name="prenom" placeholder="Prénom" required />
       <input name="date_depot" type="date" required />
       <input name="telephone" placeholder="Téléphone (optionnel)" />
       <select name="type">
@@ -81,6 +81,7 @@ export function FormulaireObjet({ onSubmit, categories, erreur }) {
     </form>
   );
 }
+
 
 function FormulairesDepot() {
   return <></>;

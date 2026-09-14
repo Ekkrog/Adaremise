@@ -5,6 +5,7 @@ import {
   FormulaireObjet,
   formatPrix,
 } from "./FormulairesDepot.jsx";
+import { ListePersonnes } from "./ListePersonnes.jsx";
 import "./NouveauDepot.css";
 
 function NouveauDepot() {
@@ -13,6 +14,7 @@ function NouveauDepot() {
   const [deposant, setDeposant] = useState(null);
   const [objets, setObjets] = useState([]);
   const [erreur, setErreur] = useState("");
+  const [messageDeposant, setMessageDeposant] = useState("");
 
   useEffect(() => {
     getData("/categories").then(setCategories);
@@ -26,14 +28,29 @@ function NouveauDepot() {
   const enregistrerDepot = async (event) => {
     event.preventDefault();
     setErreur("");
+    setMessageDeposant("");
     const formulaire = event.target;
+    const nom = formulaire.nom.value.trim();
+    const prenom = formulaire.prenom.value.trim();
 
-    const personne = await getData("/personnes", "POST", {
+    const personnes = (await getData("/personnes")) ?? [];
+    const personneExiste = personnes.find(
+    (personne) => 
+    personne.nom.toLowerCase() === nom.toLowerCase() && 
+    personne.prenom.toLowerCase() === prenom.toLowerCase()
+    )
+
+    const personne = personneExiste ?? (await getData("/personnes", "POST", {
       nom: formulaire.nom.value,
       prenom: formulaire.prenom.value,
       telephone: formulaire.telephone.value,
-    });
+    }));
 
+    if (personneExiste) {
+      setMessageDeposant(
+        `Contact existant repris : ${personne.prenom} ${personne.nom}.`
+      );
+    }
     const depot = await getData("/depots", "POST", {
       personne_id: personne.id,
       date_depot: formulaire.date_depot.value,
@@ -67,12 +84,20 @@ function NouveauDepot() {
   };
 
   if (!depotId) {
-    return <FormulaireDepot onSubmit={enregistrerDepot} erreur={erreur} />;
-  }
+    return (
+    <>
+      <ListePersonnes />
+      <FormulaireDepot onSubmit={enregistrerDepot} erreur={erreur} />
+    </>
+    );
+}
 
   return (
     <>
+      <div className="messages-depot">
       <p>Dépôt n°{depotId} enregistré.</p>
+      {messageDeposant && <p className="message-deposant">{messageDeposant}</p>}
+      </div>
 
       <FormulaireObjet
         onSubmit={ajouterObjet}
