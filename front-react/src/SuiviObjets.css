@@ -29,4 +29,6 @@
 input{
     background-color: var(--creme);
     font-size: 1.25rem;
+    border-radius: 10px;
+    padding-left: 5px;
 }
