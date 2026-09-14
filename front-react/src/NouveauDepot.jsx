@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
 import { getData } from "./assets/utils.js";
+import {
+  FormulaireDepot,
+  FormulaireObjet,
+  formatPrix,
+} from "./FormulairesDepot.jsx";
+import "./NouveauDepot.css";
 
 function NouveauDepot() {
   const [categories, setCategories] = useState([]);
   const [depotId, setDepotId] = useState(null);
+  const [deposant, setDeposant] = useState(null);
   const [objets, setObjets] = useState([]);
-  const [erreur, setErreur] = useState('')
+  const [erreur, setErreur] = useState("");
 
   useEffect(() => {
     getData("/categories").then(setCategories);
   }, []);
 
   /**
-   * 
+   *
    * @param {*} event.preventDefault() empêche le clic du bouton "enregistrer" de revenir à un formulaire vierge
-   * @returns 
+   * @returns
    */
   const enregistrerDepot = async (event) => {
     event.preventDefault();
+    setErreur("");
     const formulaire = event.target;
 
     const personne = await getData("/personnes", "POST", {
@@ -32,15 +40,14 @@ function NouveauDepot() {
       type: formulaire.type.value,
     });
 
-    if (depot.erreur) 
-        return setErreur(depot.erreur);
+    if (depot.erreur) return setErreur(depot.erreur);
     setDepotId(depot.id);
   };
 
   /**
-   * 
+   *
    * @param {*} event.preventDefault() annule l'event qui recharge le formulaire au clic du bouton
-   * @returns 
+   * @returns
    */
   const ajouterObjet = async (event) => {
     event.preventDefault();
@@ -60,63 +67,35 @@ function NouveauDepot() {
   };
 
   if (!depotId) {
-    return (
-      <form onSubmit={enregistrerDepot}>
-        <h3>Enregistrer le dépôt</h3>
-        <input name="prenom" placeholder="Prénom" required />
-        <input name="nom" placeholder="Nom" required />
-        <input name="date_depot" type="date" required />
-        <input name="telephone" placeholder="Téléphone (optionnel)" />
-        <select name="type">
-          <option value="boutique">Boutique</option>
-          <option value="domicile">Domicile</option>
-        </select>
-        <button type="submit">Enregistrer le dépôt</button>
-        {erreur && <p>{erreur}</p>}
-      </form>
-    );
+    return <FormulaireDepot onSubmit={enregistrerDepot} erreur={erreur} />;
   }
 
   return (
     <>
       <p>Dépôt n°{depotId} enregistré.</p>
 
-      <form onSubmit={ajouterObjet}>
-        <h3>Ajouter un objet</h3>
-        <input name="libelle" placeholder="Nom de l'objet" required />
-        
-        <select name="categorie_id" required>
-          {categories.map((categorie) => (
-            <option key={categorie.id} value={categorie.id}>
-              {categorie.libelle}
-            </option>
-          ))}
-        </select>
+      <FormulaireObjet
+        onSubmit={ajouterObjet}
+        categories={categories}
+        erreur={erreur}
+      />
 
-        <select name="etat_arrivee">
-          <option value="bon_etat">Bon état</option>
-          <option value="a_reparer">À réparer</option>
-          <option value="hors_service">Hors service</option>
-        </select>
-
-        <input
-          name="poids_kg"
-          type="number"
-          placeholder="Poids (kg)"
-          required
-        />
-
-        <input name="prix" type="number" placeholder="Prix (€)" />
-        <button type="submit">Ajouter l'objet</button>
-      </form>
-
-      <ul>
-        {objets.map((objet) => (
-          <li key={objet.id}>
-            {objet.libelle} — {objet.poids_kg} kg
-          </li>
-        ))}
-      </ul>
+      {objets.length > 0 && (
+        <section className="objets-section">
+          <h4 className="objets-titre">Objets ajoutés ({objets.length})</h4>
+          <ul className="liste-objets">
+            {objets.map((objet) => (
+              <li key={objet.id}>
+                <span className="objet-nom">{objet.libelle}</span>
+                <div className="objet-details">
+                  <span className="objet-poids">{objet.poids_kg} kg</span>
+                  <span className="objet-prix">{formatPrix(objet.prix)}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </>
   );
 }

@@ -1,6 +1,9 @@
 import "./Objet.css";
+import "./variables.css"
 import { Link } from 'react-router-dom';
 import { modifier_statut } from "./assets/utils.js";
+
+const date = (valeur) => (valeur ? valeur.slice(0,10) : "")
 
 function Objet({ objets }) {
   
@@ -12,14 +15,15 @@ function Objet({ objets }) {
             <details>
               <summary>
                 <p> {item.libelle}</p>
-                <p className={`statut-${item.statut}`}> {modifier_statut(item.statut)} </p>
+                <span className={`statut-${item.statut}`}> {modifier_statut(item.statut)} </span>
                 <p> {item.prix} € </p>
                 <Link to={`/objets/${item.id}`}>✎</Link>
               </summary>
-              <p>{item.poids_kg} kg</p>
-              <p>{item.etat_arrivee}</p>
-              <p>{item.date_mise_rayon}</p>
-              <p>{item.categorie}</p>
+              <p><span className="items">id :</span> {item.id}</p>
+              <p><span className="items">poids :</span> {item.poids_kg} kg</p>
+              <p><span className="items">état :</span> {item.etat_arrivee}</p>
+              <p><span className="items">date mise en rayon:</span> {date(item.date_mise_rayon)}</p>
+              <p><span className="items">catégorie :</span> {item.categorie}</p>
             </details>
           </li>
         ))}

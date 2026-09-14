@@ -76,7 +76,7 @@ depotRouter.post('/', async (req, res) => {
 
 // POST /depots/:id/objets — ajoute un objet à un dépôt existant
 depotRouter.post('/:id/objets', async (req, res) => {
-  const { libelle, poids_kg, etat_arrivee, categorie_id } = req.body;
+  const { libelle, poids_kg, etat_arrivee, categorie_id, prix } = req.body;
 
   if (!libelle || !poids_kg || !etat_arrivee || !categorie_id) {
     return res.status(400).json({
@@ -93,12 +93,16 @@ depotRouter.post('/:id/objets', async (req, res) => {
     return res.status(400).json({ erreur: 'poids_kg doit être un nombre' });
   }
 
+    if (prix !== undefined && prix !== null && prix !== '' && isNaN(Number(prix))) {
+    return res.status(400).json({ erreur: 'prix doit être un nombre' });
+  }
+
   try {
     const result = await pool.query(
-      `INSERT INTO objet (libelle, poids_kg, etat_arrivee, categorie_id, depot_id)
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO objet (libelle, poids_kg, etat_arrivee, categorie_id, depot_id, prix)
+       VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [libelle, poids_kg, etat_arrivee, categorie_id, req.params.id]
+      [libelle, poids_kg, etat_arrivee, categorie_id, req.params.id, prix || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {

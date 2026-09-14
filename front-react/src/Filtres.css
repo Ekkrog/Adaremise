@@ -1,0 +1,28 @@
+.filtres{
+    display: flex;
+    margin-left: 20%;
+    height: 150px;
+    gap:40px;
+}
+
+
+.filtres > * {
+    border-radius: 20px;
+}
+
+.filtreRecherche{
+    background-color: var(--creme);
+    font-size: 1.25rem;
+    border-radius: 20px;
+}
+
+.filtreCategorie >
+        option:focus, option:focus{
+        background-color: var(--green-light);
+        color:var(--yellow-ocre);
+    }
+
+.filtreCategorie{
+    border-radius: 20px;
+}
+
