@@ -1,22 +1,109 @@
+#root, body {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
 /* ==========================================
    Conteneurs & Cartes Formulaires
    ========================================== */
 
-/* Structure de la carte principale du dépôt */
+details {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 400px;
+    min-width: 300px;
+    background-color: var(--creme);
+    border-radius: 15px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    float: left;
+}
+
+summary {
+    padding: 14px 20px;
+    font-family: var(--comfortaa);
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--green-dark);
+    background-color: var(--green-light);
+    cursor: pointer;
+    list-style: none; /* Masque la flèche par défaut */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+summary:hover {
+    background-color: var(--yellow-ocre);
+}
+
+summary::after {
+    content: "＋";
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--green-dark);
+}
+
+details[open] summary::after {
+    content: "－";
+}
+
+details[open] summary {
+    border-bottom: 2px solid var(--yellow-ocre);
+}
+
+details table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--montserrat);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+details th {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    font-family: var(--comfortaa);
+    font-size: 0.85rem;
+    text-align: left;
+    padding: 10px 12px;
+}
+
+details td {
+    padding: 10px 12px;
+    color: var(--grey);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+details tbody tr:last-child td {
+    border-bottom: none;
+}
+
+details tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+
+   /* Structure de la carte principale du dépôt */
 .nouveau-depot-container,
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
+    width: 450px;
     min-width: 350px;
     padding: 25px 20px;
-    margin: 80px auto 40px auto;
+    margin-top: 20px;
     background-color: var(--green-light);
     color: var(--grey);
     font-family: var(--montserrat);
     border-radius: 20px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+    float: right;
 }
 
 /* Titres des formulaires */
