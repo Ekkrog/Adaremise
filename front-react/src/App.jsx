@@ -16,6 +16,7 @@ import logo from './assets/img/logo-la-remise.png';
 function Home({benevoleChoisi}) {
     return (
     <>
+        
         <div className="accueil">
             <h2>Bonjour <span> {benevoleChoisi}</span></h2>
             <img src={logo}/>
@@ -25,20 +26,31 @@ function Home({benevoleChoisi}) {
 }
 
 export default function App() {
-    const [connecte, setConnecte] = useState(false);
-    const [benevoleChoisi, setBenevoleChoisi] = useState(0);
+    const [connecte, setConnecte] = useState(JSON.parse(localStorage.getItem("connecte")) ?? false);
+    const [benevoleChoisi, setBenevoleChoisi] = useState(localStorage.getItem("benevoleChoisi") ?? 0);
     
+
     return (
         
         <BrowserRouter>
 
         {
-            connecte && 
-                <Header />
+            JSON.parse(localStorage.getItem("connecte")) && 
+                <>
+                    <Header />
+                    <span className="button deco" onClick={() => {
+                        localStorage.removeItem("connecte");
+                        localStorage.removeItem("benevoleChoisi");
+                        localStorage.clear();
+                        setConnecte(false);
+                    }}>Se déconnecter</span>
+                </>
+                
+                
         }
             
             <Routes>
-                {connecte && 
+                {JSON.parse(localStorage.getItem("connecte")) && 
                     <>
                         <Route path="/" element={  <Home benevoleChoisi={benevoleChoisi} />  } />
                         <Route path="/objets" element={  <ListeObjets />  } />
@@ -49,7 +61,7 @@ export default function App() {
                     
                     
                 }
-                {!connecte && 
+                {!JSON.parse(localStorage.getItem("connecte")) && 
                     <Route path="/*" element={<Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
                 }
             </Routes>
