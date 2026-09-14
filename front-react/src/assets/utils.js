@@ -34,3 +34,19 @@ export const getData = async (url, method = 'GET', data = null, customHeaders = 
         console.error("ça marche pas", error);
     }
 }
+
+    const statut = {
+        "en_rayon":"En rayon",
+        "vendu":"Vendu",
+        "recycle":"Recyclé",
+        "en_rayon":"En rayon",
+        "arrive":"Arrivé",
+        "bon_etat": "Bon état",
+        "a_reparer":"À réparer",
+        "hors_service":"Hors Service",
+        "en_reparation":"En réparation"
+    }
+
+    export const modifier_statut=(oldstatut)=>{
+        return statut[oldstatut]?? oldstatut;
+    }

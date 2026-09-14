@@ -1,6 +1,7 @@
 import "./Objet.css";
 import "./variables.css"
 import { Link } from 'react-router-dom';
+import { modifier_statut } from "./assets/utils.js";
 
 const date = (valeur) => (valeur ? valeur.slice(0,10) : "")
 
@@ -14,7 +15,7 @@ function Objet({ objets }) {
             <details>
               <summary>
                 <p> {item.libelle}</p>
-                <span className={`statut-${item.statut}`}> {item.statut} </span>
+                <span className={`statut-${item.statut}`}> {modifier_statut(item.statut)} </span>
                 <p> {item.prix} € </p>
                 <Link to={`/objets/${item.id}`}>✎</Link>
               </summary>

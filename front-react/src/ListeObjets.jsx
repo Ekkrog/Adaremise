@@ -6,6 +6,7 @@ import {getData} from "./assets/utils.js"
 import './ListeObjets.css';
 import './variables.css';
 
+
 function ListeObjets() {
   const [searchParams] = useSearchParams();
   const [objets, setObjets] = useState([]);

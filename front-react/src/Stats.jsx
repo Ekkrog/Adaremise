@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Stats.css";
+import { modifier_statut } from "./assets/utils.js";
 
 function Stats() {
   const [stats, setStats] = useState({ objets_par_statut: [] });
@@ -31,7 +32,7 @@ function Stats() {
           <h2>Objets par statut</h2>
           {stats.objets_par_statut.map((o) => (
             <div key={o.statut} className="carte_stats">
-              <p className="titre_stats">{o.statut}</p>
+              <p className="titre_stats">{modifier_statut(o.statut)}</p>
               <p className="valeur_stats">{o.count}</p>
             </div>
           ))}
