@@ -14,8 +14,9 @@ export default function App() {
                 <img className="logo" src={logo} />
                 <Link className="link" to="/">Accueil</Link>
                 <Link className="link" to="/objets">Liste Objets</Link>
-                <Link className="link" to="/depot">Effectuer un Dépôts</Link>
+                <Link className="link" to="/depot">Effectuer un Dépôt</Link>
                 <Link className="link" to="/stats">Stats</Link>
+                <Link className="link red" to="/vente">Vente</Link>
             </nav>
         </>
             

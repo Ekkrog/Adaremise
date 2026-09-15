@@ -7,6 +7,7 @@ import SuiviObjets from "./SuiviObjets.jsx";
 import Stats from "./Stats.jsx";
 import Objet from "./Objet.jsx";
 import Header from "./Header.jsx";
+import Vente from "./Vente.jsx";
 import './App.css';
 import './variables.css';
 import NouveauDepot from "./NouveauDepot.jsx";
@@ -57,6 +58,7 @@ export default function App() {
                         <Route path="/objets/:id" element={  <SuiviObjets />  } />
                         <Route path="/depot" element={  <NouveauDepot />  } />
                         <Route path="/stats" element={  <Stats />  } />
+                        <Route path="/vente" element={  <Vente />  } />
                     </>
                     
                     

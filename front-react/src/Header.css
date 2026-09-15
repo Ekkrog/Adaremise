@@ -33,6 +33,11 @@ a{
     margin:50px 50px 0 50px;
 }
 
+.red{ 
+    border: 3px solid var(--red);
+    background-color: var(--red);
+}
+
 .link:hover{
     border-color:var(--green-light);
     background-color: var(--green-light);
@@ -43,3 +48,4 @@ a{
     background-color: var(--green-dark);
     color: var(--green-light);
 }
+
