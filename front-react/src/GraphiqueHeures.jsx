@@ -31,7 +31,7 @@ const GraphiqueHeures = () => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="nombre_heures" stroke="#332ad6" />
+      <Line type="monotone" dataKey="nombre_heures" name="Nombre d'heures par mois" stroke="#8884d8" />
     </LineChart>
   );
 };
