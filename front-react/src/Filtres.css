@@ -1,33 +1,76 @@
+/* ==========================================
+   Conteneur des Filtres
+   ========================================== */
+
 .filtres {
-    width: 240px;
-    flex-shrink: 0; /* Empêche les filtres de réduire en largeur */
-    margin-top: 0px;
-    padding: 20px;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 320px;
+    min-width: 250px;
+    padding: 25px 20px;
+    background-color: var(--green-light);
+    color: var(--grey);
+    font-family: var(--montserrat);
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.filtres > * {
+/* Titres des sections de filtre */
+.filtres h3 {
+    color: var(--green-dark);
+    font-family: var(--comfortaa);
+    font-size: 1.2rem;
+    margin: 0 0 10px 0;
+}
+
+/* ==========================================
+   Champs de saisie & Selects
+   ========================================== */
+
+.filtreRecherche input,
+.filtres select,
+.filtres .select {
     width: 100%;
-    box-sizing: border-box;
-    border-radius: 20px;
-    font-size: 1.25rem;
-}
-
-.filtreRecherche{
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    font-family: var(--comfortaa);
+    color: var(--grey);
     background-color: var(--creme);
-    border-radius: 20px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.filtreCategorie >
-        option:focus, option:focus{
-        background-color: var(--green-light);
-        color:var(--yellow-ocre);
-    }
-
-.filtreCategorie{
-    border-radius: 20px;
+.filtreRecherche input:focus,
+.filtres select:focus {
+    border-color: var(--green-dark);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Sélection multiple (Catégories) */
+.filtreCategorie select[multiple] {
+    height: 140px;
+    padding: 8px;
+    appearance: none;
+}
+
+.filtreCategorie select[multiple] option {
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+}
+
+.filtreCategorie select[multiple] option:checked {
+    background-color: var(--yellow-ocre);
+    color: var(--green-dark);
+    font-weight: bold;
+}
+
+/* Stylisation standard des options */
+.filtres option {
+    font-family: var(--comfortaa);
+    padding: 6px 10px;
+}
