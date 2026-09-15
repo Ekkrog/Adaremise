@@ -29,7 +29,8 @@
     border: 1px solid var(--green-dark);
     padding: 5px;
     border-radius: 20px;
-    background-color: var(--creme);
+    background-color: white;
+    
 }
 
 .listeArticles{
