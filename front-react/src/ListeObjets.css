@@ -1,0 +1,8 @@
+.ListeObjets {
+    display: flex;
+    align-items: flex-start;
+    gap: 100px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}

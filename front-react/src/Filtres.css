@@ -1,18 +1,23 @@
-.filtres{
+.filtres {
+    width: 240px;
+    flex-shrink: 0; /* Empêche les filtres de réduire en largeur */
+    margin-top: 0px;
+    padding: 20px;
+    box-sizing: border-box;
     display: flex;
-    margin-left: 20%;
-    height: 150px;
-    gap:40px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-
 .filtres > * {
+    width: 100%;
+    box-sizing: border-box;
     border-radius: 20px;
+    font-size: 1.25rem;
 }
 
 .filtreRecherche{
     background-color: var(--creme);
-    font-size: 1.25rem;
     border-radius: 20px;
 }
 

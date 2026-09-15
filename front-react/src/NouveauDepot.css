@@ -9,9 +9,9 @@
    ========================================== */
 
 details {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-left: 20px;
-    width: 400px;
+    width: 450px;
     min-width: 300px;
     background-color: var(--creme);
     border-radius: 15px;
@@ -29,10 +29,9 @@ summary {
     color: var(--green-dark);
     background-color: var(--green-light);
     cursor: pointer;
-    list-style: none; /* Masque la flèche par défaut */
+    list-style: none;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     user-select: none;
     transition: background-color 0.2s ease;
 }
@@ -48,13 +47,6 @@ summary::after {
     color: var(--green-dark);
 }
 
-details[open] summary::after {
-    content: "－";
-}
-
-details[open] summary {
-    border-bottom: 2px solid var(--yellow-ocre);
-}
 
 details table {
     width: 100%;
@@ -97,7 +89,7 @@ form {
     width: 450px;
     min-width: 350px;
     padding: 25px 20px;
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: var(--green-light);
     color: var(--grey);
     font-family: var(--montserrat);
@@ -217,111 +209,3 @@ form button[type="submit"]:active {
     width: 80%;
 }
 
-/* ==========================================
-   Liste des Objets Ajoutés
-   ========================================== */
-
-.liste-objets {
-    width: 40%;
-    min-width: 350px;
-    margin: 20px auto 50px auto;
-    padding: 0;
-    list-style: none;
-}
-
-.liste-objets li {
-    background-color: var(--creme);
-    color: var(--green-dark);
-    font-family: var(--montserrat);
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 12px 20px;
-    margin-bottom: 10px;
-    border-radius: 12px;
-    border-left: 5px solid var(--yellow-ocre);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* ==========================================
-   Section & Conteneur de la liste d'objets
-   ========================================== */
-
-.objets-section {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 30px;
-}
-
-.objets-titre {
-    font-family: var(--comfortaa);
-    color: var(--green-dark);
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.liste-objets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* ==========================================
-   Cartes / Items de la liste (Éléments <li>)
-   ========================================== */
-
-.liste-objets li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--creme);
-    color: var(--grey);
-    padding: 12px 18px;
-    border-radius: 15px;
-    border-left: 6px solid var(--yellow-ocre);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.liste-objets li:hover {
-    transform: translateY(-2px);
-    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.12);
-}
-
-/* Informations sur l'objet */
-.objet-nom {
-    font-family: var(--montserrat);
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: var(--green-dark);
-}
-
-.objet-details {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    font-family: var(--comfortaa);
-    font-size: 0.95rem;
-}
-
-.objet-poids {
-    background-color: var(--green-light);
-    color: var(--green-dark);
-    padding: 3px 8px;
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-.objet-prix {
-    background-color: var(--yellow-ocre);
-    color: var(--green-dark);
-    padding: 3px 8px;
-    border-radius: 8px;
-    font-weight: bold;
-}
