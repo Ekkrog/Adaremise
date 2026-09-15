@@ -10,7 +10,7 @@
 export const getData = async (url, method = 'GET', data = null, customHeaders = {}) => {
     //création de l'url pour notre requête au serveur
     const URLAPI = `http://localhost:3000/api${url}`;
-    
+
     //création des options de la  requête (GET, POST, PUT, PATCH)
     const options = {
         method: method.toUpperCase(),
@@ -19,11 +19,13 @@ export const getData = async (url, method = 'GET', data = null, customHeaders = 
                     ...customHeaders,
         }
     }
-    
+
     //ajout du body si requêtes de création ou modification
     if (data && ['POST', 'PUT', 'PATCH'].includes(options.method)) {
         options.body = JSON.stringify(data);
     }
+
+    
     try{
         const response = await fetch(URLAPI, options);
         const maRep = await response.json();
@@ -35,17 +37,17 @@ export const getData = async (url, method = 'GET', data = null, customHeaders = 
     }
 }
 
-    const statut = {
-        "en_rayon":"En rayon",
-        "vendu":"Vendu",
-        "recycle":"Recyclé",
-        "en_rayon":"En rayon",
-        "arrive":"Arrivé",
-        "bon_etat": "Bon état",
-        "a_reparer":"À réparer",
-        "hors_service":"Hors Service",
-        "en_reparation":"En réparation"
-    }
+const statut = {
+    "en_rayon":"En rayon",
+    "vendu":"Vendu",
+    "recycle":"Recyclé",
+    "en_rayon":"En rayon",
+    "arrive":"Arrivé",
+    "bon_etat": "Bon état",
+    "a_reparer":"À réparer",
+    "hors_service":"Hors Service",
+    "en_reparation":"En réparation"
+}
 
     export const modifier_statut=(oldstatut)=>{
         return statut[oldstatut]?? oldstatut;

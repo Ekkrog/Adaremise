@@ -17,12 +17,13 @@
 
 .select{
     margin :10px;
-    width: 300px;
+    width: 275px;
     text-align: center;
     font-size: 1rem;
     font-family: var(--comfortaa);
     padding:5px;
     background-color: var(--creme);
+    color: var(--grey);
 }
 
 .select,
@@ -51,6 +52,7 @@ option:hover, option:focus{
     background-color: var(--green-light);
     color:var(--green-dark);
     border:3px solid var(--yellow-ocre);
+    cursor: pointer;
 }
 .button:active{
     background-color: var(--green-dark);

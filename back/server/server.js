@@ -8,6 +8,7 @@ import { personneRouter } from './routes/personnes.js';
 import { depotRouter } from './routes/depots.js';
 import { statRouter } from './routes/stats.js';
 import { benevolesRouter } from './routes/benevoles.js'
+import { ventesRouter } from './routes/ventes.js';
 
 const swaggerDocument = JSON.parse(readFileSync('./swagger.json', 'utf8'));
 
@@ -23,6 +24,7 @@ app.use('/api/depots', depotRouter)
 app.use('/api/objets', objetRouter)
 app.use('/api/personnes', personneRouter)
 app.use('/api/stats', statRouter)
+app.use('/api/ventes', ventesRouter)
 
 app.listen(3000, () => {
   console.log('Serveur démarré sur http://localhost:3000');

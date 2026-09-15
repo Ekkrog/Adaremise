@@ -16,6 +16,7 @@ export default function App() {
                 <Link className="link" to="/objets">Liste Objets</Link>
                 <Link className="link" to="/depot">Effectuer un Dépôt</Link>
                 <Link className="link" to="/stats">Stats</Link>
+                <Link className="link red" to="/vente">Vente</Link>
             </nav>
         </>
             
