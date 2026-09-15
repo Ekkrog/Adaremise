@@ -86,13 +86,15 @@
     border-radius: 20px;
     font-weight: bold;
     text-transform: capitalize;
+    justify-self: center;
 }
+
 
 .statut-tous { background-color: #e0e0e0; color: #333; }
 .statut-recycle { background-color: #d1e7dd; color: #0f5132; }
 .statut-arrive { background-color: #cff4fc; color: #055160; }
 .statut-en_reparation { background-color: #fff3cd; color: #664d03; }
-.statut-en_rayon { background-color: var(--green-light); color: var(--green-dark); }
+.statut-en_rayon { background-color: var(--brown); color: var(--creme); }
 .statut-vendu { background-color: #f8d7da; color: #842029; }
 
 /* ==========================================
@@ -100,8 +102,10 @@
    ========================================== */
 
 .Objet details p {
+    display: flex;
+    align-items: center;
     margin: 0;
-    padding: 10px 20px;
+    padding: 12px 20px;
     color: var(--grey);
     font-family: var(--montserrat);
     font-size: 0.95rem;
@@ -117,5 +121,6 @@
     font-weight: bold;
     color: var(--green-dark);
     display: inline-block;
-    min-width: 160px;
+    width: 220px;
+    min-width: 220px;
 }

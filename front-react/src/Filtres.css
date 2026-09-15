@@ -16,6 +16,13 @@
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+.filtres section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; 
+}
+
 /* Titres des sections de filtre */
 .filtres h3 {
     color: var(--green-dark);
@@ -31,7 +38,9 @@
 .filtreRecherche input,
 .filtres select,
 .filtres .select {
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     padding: 10px 15px;
     font-size: 0.95rem;
     font-family: var(--comfortaa);
