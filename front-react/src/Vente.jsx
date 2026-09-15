@@ -34,10 +34,13 @@ function Vente() {
 
             const artAVendre = await getData("/objets?statut=en_rayon");
             setAvendre(await artAVendre);
+            panier.forEach(p => {
+                setAvendre([...avendre.filter(item => item !== p)])
+            })
         };
 
         chargerDonnees();
-    }, [client]);
+    }, [client, panier]);
 
     return (
         <>
@@ -47,14 +50,15 @@ function Vente() {
                         {!creer && (
                             <>
                                 <div>
-                                    <select className="select">
+                                    <select className="select" onChange={e => setClient(listeClients[e.target.value - 1])}>
+                                        <option value={''}>-- Sélectionner le client --</option>
                                         {listeClients.map((c) => {
                                             return c.id === client.id ? (
-                                                <option key={c.id} value={ c.nom + " " + c.prenom } selected >
+                                                <option key={c.id} value={c.id} selected >
                                                     {c.nom + " " + c.prenom}
                                                 </option>
                                             ) : (
-                                                <option key={c.id} value={ c.nom + " " + c.prenom } >
+                                                <option key={c.id} value={ c.id } >
                                                     {c.nom + " " + c.prenom}
                                                 </option>
                                             );
@@ -95,9 +99,9 @@ function Vente() {
                         )}
                     </section>
                     <section className="formulaire">
-                        <input className="input" placeholder="Rechercher ID" />
                         <section className="listeArticles">
                             {avendre.map((objet) => {
+                                
                                 return (
                                     <article
                                         key={objet.id}
@@ -132,7 +136,7 @@ function Vente() {
                                                               libelle:
                                                                   objet.libelle,
                                                               prix: nouveauPrix,
-                                                          }
+                                                            }
                                                         : {
                                                               id: objet.id,
                                                               libelle:
@@ -140,6 +144,7 @@ function Vente() {
                                                               prix: objet.prix,
                                                           },
                                                 ]);
+                                                setAvendre([...avendre.filter(item => item !== objet)])
                                                 const nouveauTotal = total;
                                                 setTotal(
                                                     nouveauTotal +
@@ -168,15 +173,22 @@ function Vente() {
                         {panier.map((p) => {
                             
                             return (
-                                <li>
-                                    {p.libelle} --- {p.prix}
+                                <li key={p.id}>
+                                    {p.libelle} --- {p.prix} 
+                                    <span className="button tiny" onClick={() => {
+                                        const totalTempo = total - p.prix;
+                                        setTotal(totalTempo);
+                                        setPanier([...panier.filter(item => item !== p)]);
+                                        setAvendre([...avendre, p])
+                                    }}>❌</span>
                                 </li>
                             );
                         })}
                     </ul>
                     <ul className="bottom">
+                        {client.adherente === true ? <li>Réduction adhérent 20%</li> : ''  }
                         <li>
-                            Total Panier : {Number.parseFloat(total).toFixed(2)} €
+                            Total Panier : {client.adherente === true ? Number.parseFloat(total * 0.8).toFixed(2) : Number.parseFloat(total).toFixed(2)}€
                         </li>
                         <li>
                             <select className="select" onChange={e => setModePaiement(e.target.value)} required>
