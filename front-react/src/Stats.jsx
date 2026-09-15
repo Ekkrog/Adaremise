@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./Stats.css";
 import { modifier_statut } from "./assets/utils.js";
+import GraphiqueHeures from "./GraphiqueHeures.jsx";
 
 function Stats() {
   const [stats, setStats] = useState({ objets_par_statut: [] });
-  //TODO fonction qui récupère les stats depuis l'API et les stocke dans le state
 
   useEffect(() => {
     const chargerStats = async () => {
@@ -15,13 +15,9 @@ function Stats() {
     const intervalID = setInterval(chargerStats, 20000);
 
     chargerStats();
+
+    return () => clearInterval(intervalID);
   }, []);
-
-  useEffect(() => {
-    console.log("stats : ", stats);
-  }, [stats]);
-
-  //TODO afficher les stats dans le tableau avec un Map
 
   return (
     <>
@@ -52,9 +48,14 @@ function Stats() {
             <p className="valeur_stats">{stats.poids_detourne_dechetterie} Kg</p>
           </div>
         </div>
+
+        <div>
+          <h2>Heures de réparation par mois</h2>
+          <GraphiqueHeures />
+        </div>
       </div>
     </>
-        );
+  );
 }
 
 export default Stats;

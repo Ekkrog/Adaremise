@@ -49,6 +49,6 @@ const statut = {
     "en_reparation":"En réparation"
 }
 
-export const modifier_statut=(oldstatut)=>{
-    return statut[oldstatut]?? oldstatut;
-}
+    export const modifier_statut=(oldstatut)=>{
+        return statut[oldstatut]?? oldstatut;
+    }

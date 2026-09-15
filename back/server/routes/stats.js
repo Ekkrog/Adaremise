@@ -20,3 +20,14 @@ statRouter.get('/', async (req, res) => {
     res.status(500).json({ erreur: 'Erreur serveur' });
   }
 });
+
+statRouter.get('/heures', async (req, res) => {
+  try {
+    const { rows } = await pool.query(`SELECT to_char(date_repa, 'MM-YYYY') AS "mois_annee", SUM(duree_h) AS "nombre_heures" FROM reparation GROUP BY to_char(date_repa, 'MM-YYYY') ORDER BY to_char(date_repa, 'MM-YYYY') ASC`);
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erreur: 'Erreur serveur' });
+  }
+});
