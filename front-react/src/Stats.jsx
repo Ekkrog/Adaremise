@@ -49,7 +49,7 @@ function Stats() {
           </div>
         </div>
 
-        <div>
+        <div className="graphique_conteneur">
           <h2>Heures de réparation par mois</h2>
           <GraphiqueHeures />
         </div>
