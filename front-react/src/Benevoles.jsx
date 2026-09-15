@@ -3,6 +3,7 @@ import './Benevoles.css'
 import { getData } from './assets/utils.js';
 import { useLocation, useParams } from 'react-router-dom';
 import './variables.css';
+import logo from './assets/img/logo-la-remise.png';
 
 function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
 
@@ -23,6 +24,7 @@ function Benevoles({connecte, setConnecte, benevoleChoisi, setBenevoleChoisi}) {
 
   return (
     <>
+        <img className='logo-connect' src={logo} />
         <section className='benevoles'>
             <select onChange={(e) => {
                 setBenevoleChoisi(e.target.value);
