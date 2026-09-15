@@ -1,78 +1,98 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { useLocation, useParams } from "react-router-dom";
-import { getData } from './assets/utils.js'
-import './SuiviObjets.css'
-import { modifier_statut } from './assets/utils.js';
+import { getData, modifier_statut } from './assets/utils.js';
+import './SuiviObjets.css';
 
 function SuiviObjets() {
-    
-    const [monObjet, setMonObjet] = useState([]);
+    // Initialiser à null ou un objet vide au lieu d'un tableau []
+    const [monObjet, setMonObjet] = useState(null);
+    const [newEtat, setNewEtat] = useState('');
+    const [newStatut, setNewStatut] = useState('');
+    const [newPrix, setNewPrix] = useState('');
+
     const location = useLocation();
-    
     const params = useParams();
-    const id = params.id;
-   
 
     const etat_obj = ['bon_etat', 'a_reparer', 'hors_service'];
     const statut_obj = ['arrive', 'en_reparation', 'en_rayon', 'vendu', 'recycle'];
 
     useEffect(() => {
-        
         const chargerDonnees = async () => {
             const obj = await getData(location.pathname);
             
             setMonObjet(obj);
-        }
-        
-        chargerDonnees();
-    }, [])
-    
-    const [newEtat, setNewEtat] = useState(monObjet.etat_arrivee);
-    const [newStatut, setNewStatut] = useState(monObjet.statut);
-    const [newPrix, setNewPrice] = useState(monObjet.prix);
-    return (
-        <>
-            <section className='suivi'>
-                <h1>Suivi Objet</h1>
-                <ul>
-                    <li><label className='liste'>Numéro : </label><label>{monObjet.id}</label></li>
-                    <li><label className='liste'>Nom : </label><label>{monObjet.libelle}</label></li>
-                    <li><label className='liste'>Poids : </label><label>{monObjet.poids_kg + ' Kg'}</label></li>
-                    <li><label className='liste'>Catégorie : </label><label>{monObjet.categorie}</label></li>
-                    <li><label className='liste'>Etat : </label>
-                        <select className='select' onChange={(e) => {setNewEtat(e.target.value)}}>{etat_obj.map((etat) =>
-                            {
-                                return etat === monObjet.etat_arrivee ? <option value={modifier_statut(etat)} selected>{modifier_statut(etat)}</option> : <option value={modifier_statut(etat)} >{modifier_statut(etat)}</option>
-                            }
-                        )}
-                        </select></li>
-                    <li><label className='liste'>Statut : </label>
-                        <select  className='select' onChange={(e) => {setNewStatut(e.target.value)}}>{statut_obj.map((statut) =>
-                            {
-                                return statut === monObjet.statut ? <option value={modifier_statut(statut)} selected>{modifier_statut(statut)}</option> : <option value={modifier_statut(statut)}>{modifier_statut(statut)}</option>
-                            }
-                        )}
-                        </select></li>
-                    <li><label className='liste'>Prix : </label><input placeholder={monObjet.prix + "€"} onChange={(e) => {setNewPrice(e.target.value)} } /></li>
-
-                </ul>
-                <span className='button' onClick={() => {
-                        const data = {etat_arrivee:newEtat, statut:newStatut, prix:newPrix};
-                        
-                        const envoyerDonnees = async () => {
-                            const path = location.pathname + '/statut/';
-                            
-                            const obj = await getData(path, 'PATCH', data);
-                            
-                            setMonObjet(obj);
-                        }
-                        envoyerDonnees();
-
-                    }}>Enregistrer</span>
-            </section>
             
-        </>
-    )
+            setNewEtat(obj.etat_arrivee || '');
+            setNewStatut(obj.statut || '');
+            setNewPrix(obj.prix || '');
+        };
+
+        chargerDonnees();
+    }, [location.pathname]);
+
+    if (!monObjet) {
+        return <p>Chargement des données...</p>;
+    }
+
+    return (
+        <section className='suivi'>
+            <h1>Suivi Objet</h1>
+            <ul>
+                <li><label className='liste'>Numéro : </label><label>{monObjet.id}</label></li>
+                <li><label className='liste'>Nom : </label><label>{monObjet.libelle}</label></li>
+                <li><label className='liste'>Poids : </label><label>{monObjet.poids_kg} Kg</label></li>
+                <li><label className='liste'>Catégorie : </label><label>{monObjet.categorie}</label></li>
+                
+                <li>
+                    <label className='liste'>Etat : </label>
+                    
+                    <select className='select' value={newEtat} onChange={(e) => setNewEtat(e.target.value)}>
+                        {etat_obj.map((etat) => (
+                            <option key={etat} value={etat}>
+                                {modifier_statut(etat)}
+                            </option>
+                        ))}
+                    </select>
+                </li>
+                
+                <li>
+                    <label className='liste'>Statut : </label>
+                    <select className='select' value={newStatut} onChange={(e) => setNewStatut(e.target.value)}>
+                        {statut_obj.map((statut) => (
+                            <option key={statut} value={statut}>
+                                {modifier_statut(statut)}
+                            </option>
+                        ))}
+                    </select>
+                </li>
+                
+                <li>
+                    <label className='liste'>Prix : </label>
+                    <input 
+                        type="text" 
+                        value={newPrix} 
+                        placeholder={monObjet.prix + "€"} 
+                        onChange={(e) => setNewPrix(e.target.value)} 
+                    />
+                </li>
+            </ul>
+
+            <span className='button' onClick={async () => {
+                const data = {
+                    etat_arrivee: newEtat || monObjet.etat_arrivee,
+                    statut: newStatut || monObjet.statut,
+                    prix: newPrix || monObjet.prix
+                };
+
+                const path = location.pathname + '/statut/';
+                const objUpdated = await getData(path, 'PATCH', data);
+                
+                setMonObjet(objUpdated);
+            }}>
+                Enregistrer
+            </span>
+        </section>
+    );
 }
 
-export default SuiviObjets
+export default SuiviObjets;
