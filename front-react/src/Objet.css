@@ -1,245 +1,121 @@
-/* ==========================================================================
-   Liste d'objets - styles
-   ========================================================================== */
-
 /* ==========================================
-   Conteneur principal
+   Conteneur de la liste d'objets
    ========================================== */
 
 .afficherObjets {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-grow: 1;
-  max-width: 800px;
-  margin: 30px;
-  margin-top: 0px;
-  font-family: var(--comfortaa);
+    flex: 1;
+    width: 100%;
 }
 
 .Objet {
-  list-style: none;
-  margin: 5px;
-  padding: 5px;
-}
-
-/* ==========================================
-   Carte d'un objet (élément <li>)
-   ========================================== */
-
-.Objet li {
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.Objet li p {
-  margin: 2px 0;
-  font-size: 14px;
-  color: var(--grey);
-  text-align: center;
-}
-
-/* ==========================================
-   Aperçu cliquable (<summary>)
-   ========================================== */
-
-.Objet summary {
-  width: 100%;
-  box-sizing: center;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  align-items: center;
-  gap: 2px;
-  padding: 0.9rem 1.1rem;
-  background-color: #fff9f4;
-  cursor: pointer;
-  list-style: none;
-}
-
-.Objet summary:hover {
-  background-color: var(--brown);
-  color: var(--creme);
-}
-
-.Objet summary:hover > p {
-  color: var(--creme);
-}
-
-/* enlève le triangle par défaut (Chrome/Safari) */
-.Objet summary::-webkit-details-marker {
-  display: none;
-}
-
-/* enlève le triangle par défaut (Firefox et autres) */
-.Objet summary::marker {
-  content: "";
-}
-
-/* nom (1er <p> dans summary) */
-.Objet summary p:first-child {
-  justify-self: start;
-  font-weight: bolder;
-  font-size: 15px;
-}
-
-/* prix (dernier <p> dans summary) */
-.Objet summary p:last-child {
-  justify-self: end;
-  font-size: 1.5rem;
-  color: var(--grey);
-  white-space: nowrap;
-}
-
-/* ==========================================
-   Badge de statut
-   (className="statut-..." peu importe sa position)
-   ========================================== */
-
-.Objet li span[class^="statut-"] {
-  width: 100px;
-  margin: 0;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.statut-recycle {
-  background-color: var(--green-light);
-  color: var(--green-dark);
-}
-
-.statut-vendu {
-  background-color: var(--green-dark);
-  color: var(--green-light);
-}
-
-.statut-en_reparation {
-  background-color: var(--yellow-ocre);
-  color: var(--brown);
-}
-
-.statut-en_rayon {
-  background-color: var(--grey);
-  color: var(--yellow-ocre);
-}
-
-.statut-arrive {
-  background-color: var(--red);
-  color: var(--creme);
-}
-
-/* ==========================================
-   Contenu déplié (poids, état d'arrivée, date de mise en rayon)
-   ========================================== */
-
-.Objet details > p {
-  margin: 2px 0 0;
-  padding: 0 1.1rem;
-  font-size: 13px;
-  color: var(--grey);
-}
-
-.Objet details > p:first-of-type {
-  margin-top: 6px;
-  padding-top: 8px;
-  border-top: 1px solid var(--creme);
-}
-
-.Objet details > p:last-of-type {
-  padding-bottom: 0.9rem;
-}
-
-.items {
-  font-family: var(--montserrat);
-  font-weight: bolder;
-}
-
-/* ==========================================================================
-   Objets ajoutés lors d'un dépôt (page Nouveau Dépôt)
-   ========================================================================== */
-
-.objets-section {
-    float: right;
-    clear: right;
-    width: 450px;
-    min-width: 350px;
-    margin-top: 20px;
-    box-sizing: border-box;
-}
-
-.objets-titre {
-    font-family: var(--comfortaa);
-    color: var(--green-dark);
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.liste-objets {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
-.liste-objets li {
-    display: flex;
-    justify-content: space-between;
+/* ==========================================
+   Carte / Details d'un objet
+   ========================================== */
+
+.Objet details {
+    width: 100%;
+    margin: 0;
     background-color: var(--creme);
+    border-radius: 15px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    float: none;
+}
+
+/* En-tête / Summary */
+.Objet summary {
+    padding: 14px 20px;
+    font-family: var(--comfortaa);
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--green-dark);
+    background-color: var(--green-light);
+    cursor: pointer;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 140px 100px 30px;
+    align-items: center;
+    gap: 15px;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.Objet summary:hover {
+    background-color: var(--yellow-ocre);
+}
+
+.Objet summary p {
+    margin: 0;
+}
+
+.Objet summary p:nth-of-type(2) {
+    text-align: right; /* Alignement à droite pour le prix */
+}
+
+.Objet summary a {
+    color: var(--green-dark);
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.Objet summary a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   Badges de statut
+   ========================================== */
+
+/* prend en compte le variation de statut (même style pour tous) */
+.Objet summary [class^="statut-"] {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.statut-tous { background-color: #e0e0e0; color: #333; }
+.statut-recycle { background-color: #d1e7dd; color: #0f5132; }
+.statut-arrive { background-color: #cff4fc; color: #055160; }
+.statut-en_reparation { background-color: #fff3cd; color: #664d03; }
+.statut-en_rayon { background-color: var(--green-light); color: var(--green-dark); }
+.statut-vendu { background-color: #f8d7da; color: #842029; }
+
+/* ==========================================
+   Détails dépliés de l'objet
+   ========================================== */
+
+.Objet details p {
+    margin: 0;
+    padding: 10px 20px;
     color: var(--grey);
     font-family: var(--montserrat);
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 8px 12px;
-    border-radius: 10px;
-    border-left: 4px solid var(--yellow-ocre);
-    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.liste-objets li:hover {
-    transform: translateY(-2px);
-    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.12);
+.Objet details p:last-child {
+    border-bottom: none;
 }
 
-/* Informations sur l'objet */
-.objet-nom {
-    font-family: var(--montserrat);
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: var(--green-dark);
-}
-
-.objet-details {
-    display: flex;
-    gap: 6px;
-    align-items: center;
+.Objet .items {
     font-family: var(--comfortaa);
-    font-size: 0.8rem;
-}
-
-.objet-poids {
-    background-color: var(--green-light);
-    color: var(--green-dark);
-    padding: 2px 6px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.objet-prix {
-    background-color: var(--yellow-ocre);
-    color: var(--green-dark);
-    padding: 2px 6px;
-    border-radius: 6px;
     font-weight: bold;
+    color: var(--green-dark);
+    display: inline-block;
+    min-width: 160px;
 }
