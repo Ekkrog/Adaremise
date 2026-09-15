@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const GraphiqueHeures = () => {
   const [data, setData] = useState([]);
@@ -15,24 +15,19 @@ const GraphiqueHeures = () => {
   }, []);
 
   return (
-    <LineChart
-      width={700}
-      height={400}
-      data={data}
-      margin={{
-        top: 5,
-        right: 20,
-        left: 0,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid />
-      <XAxis dataKey="mois_annee" strocke="#1b6625" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="nombre_heures" name="Nombre d'heures par mois" stroke="#8884d8" />
-    </LineChart>
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart
+        data={data}
+        margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+      >
+        <CartesianGrid />
+        <XAxis dataKey="mois_annee" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="nombre_heures" name="Nombre d'heures par mois" stroke="#8884d8" />
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 
