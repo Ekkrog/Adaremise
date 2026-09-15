@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Stats.css";
 import { modifier_statut } from "./assets/utils.js";
+import GraphiqueHeures from "./GraphiqueHeures.jsx";
 
 function Stats() {
   const [stats, setStats] = useState({ objets_par_statut: [] });
@@ -52,6 +53,7 @@ function Stats() {
             <p className="valeur_stats">{stats.poids_detourne_dechetterie} Kg</p>
           </div>
         </div>
+        <GraphiqueHeures/>
       </div>
     </>
         );

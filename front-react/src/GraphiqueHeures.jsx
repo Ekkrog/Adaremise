@@ -1,0 +1,39 @@
+import { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+const GraphiqueHeures = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const chargerHeures = async () => {
+      const reponse = await fetch("http://localhost:3000/api/stats/heures");
+      const mes_data = await reponse.json();
+      setData(mes_data);
+    };
+
+    chargerHeures();
+  }, []);
+
+  return (
+    <LineChart
+      width={700}
+      height={400}
+      data={data}
+      margin={{
+        top: 5,
+        right: 20,
+        left: 0,
+        bottom: 5,
+      }}
+    >
+      <CartesianGrid />
+      <XAxis dataKey="mois_annee" strocke="#1b6625" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="nombre_heures" stroke="#332ad6" />
+    </LineChart>
+  );
+};
+
+export default GraphiqueHeures;
