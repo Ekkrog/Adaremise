@@ -34,6 +34,7 @@ export default function App() {
     return (
         
         <BrowserRouter>
+        <div className="app-shell">
 
         {
             JSON.parse(localStorage.getItem("connecte")) && 
@@ -50,6 +51,7 @@ export default function App() {
                 
         }
             
+            <div className="app-content">
             <Routes>
                 {JSON.parse(localStorage.getItem("connecte")) && 
                     <>
@@ -67,6 +69,8 @@ export default function App() {
                     <Route path="/*" element={<Benevoles connecte={connecte} setConnecte={setConnecte} benevoleChoisi={benevoleChoisi} setBenevoleChoisi={setBenevoleChoisi} /> } />
                 }
             </Routes>
+            </div>
+        </div>
         </BrowserRouter>
 
     );
