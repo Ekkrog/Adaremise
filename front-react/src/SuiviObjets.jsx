@@ -9,26 +9,36 @@ function SuiviObjets() {
     const [newEtat, setNewEtat] = useState('');
     const [newStatut, setNewStatut] = useState('');
     const [newPrix, setNewPrix] = useState('');
+    const [newCategorie, setNewCategorie] = useState('');
+    const [newPoids, setNewPoids] = useState(0);
+    const [listeCategories, setListeCategories] = useState([])
+    const [refresh, setRefresh] = useState(false)
 
     const location = useLocation();
     const params = useParams();
 
     const etat_obj = ['bon_etat', 'a_reparer', 'hors_service'];
     const statut_obj = ['arrive', 'en_reparation', 'en_rayon', 'vendu', 'recycle'];
+    
 
     useEffect(() => {
         const chargerDonnees = async () => {
             const obj = await getData(location.pathname);
-            
+            console.log(obj)
             setMonObjet(obj);
-            
+            const cat = await getData("/categories")
+            console.log(cat)
+            setListeCategories(cat)
             setNewEtat(obj.etat_arrivee || '');
             setNewStatut(obj.statut || '');
-            setNewPrix(obj.prix || '');
+            setNewPrix(obj.prix || 0);
+            setNewCategorie(obj.categorie_id || '');
+            setNewPoids(obj.poids_kg || 0);
+            setRefresh(false);
         };
 
         chargerDonnees();
-    }, [location.pathname]);
+    }, [location.pathname], refresh);
 
     if (!monObjet) {
         return <p>Chargement des données...</p>;
@@ -40,8 +50,20 @@ function SuiviObjets() {
             <ul>
                 <li><label className='liste'>Numéro : </label><label>{monObjet.id}</label></li>
                 <li><label className='liste'>Nom : </label><label>{monObjet.libelle}</label></li>
-                <li><label className='liste'>Poids : </label><label>{monObjet.poids_kg} Kg</label></li>
-                <li><label className='liste'>Catégorie : </label><label>{monObjet.categorie}</label></li>
+                <li><label className='liste'>Poids : </label><input 
+                        type="text" 
+                        value={newPoids} 
+                        placeholder={monObjet.poids_kg + "Kg"} 
+                        onChange={(e) => setNewPoids(e.target.value)} 
+                    /></li>
+                <li><label className='liste'>Catégorie : </label>
+                    <select className='select' value={newCategorie} onChange={(e) => setNewCategorie(e.target.value)}>
+                        {listeCategories.map((categorie) => (
+                            <option key={categorie.id} value={categorie.id}>
+                                {categorie.libelle}
+                            </option>
+                        ))}
+                    </select></li>
                 
                 <li>
                     <label className='liste'>Etat : </label>
@@ -80,14 +102,16 @@ function SuiviObjets() {
             <span className='button' onClick={async () => {
                 const data = {
                     etat_arrivee: newEtat || monObjet.etat_arrivee,
+                    poids_kg: newPoids || monObjet.poids_kg,
                     statut: newStatut || monObjet.statut,
-                    prix: newPrix || monObjet.prix
+                    prix: newPrix || monObjet.prix,
+                    categorie_id: newCategorie || monObjet.categorie_id
                 };
 
                 const path = location.pathname + '/statut/';
                 const objUpdated = await getData(path, 'PATCH', data);
                 
-                setMonObjet(objUpdated);
+                setRefresh(true)
             }}>
                 Enregistrer
             </span>

@@ -28,7 +28,7 @@ objetRouter.get('/', async (req, res) => {
 objetRouter.get('/:id', async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT o.id, o.libelle, o.poids_kg, o.etat_arrivee, o.statut, o.prix,
+      `SELECT o.id, o.libelle, o.poids_kg, o.etat_arrivee, o.statut, o.prix, o.categorie_id,
               c.libelle AS categorie,
               d.id AS depot_id, d.date_depot,
               p.nom AS nom_donatrice, p.prenom AS prenom_donatrice
@@ -51,7 +51,7 @@ objetRouter.get('/:id', async (req, res) => {
 
 // PATCH /objets/:id/statut — fait évoluer le statut d'un objet
 objetRouter.patch('/:id/statut', async (req, res) => {
-  const { statut, prix } = req.body;
+  const { etat_arrivee, statut, prix, poids_kg, categorie_id } = req.body;
 
   const statutsValides = ['arrive', 'en_reparation', 'en_rayon', 'vendu', 'recycle'];
   if (!statut || !statutsValides.includes(statut)) {
@@ -61,10 +61,10 @@ objetRouter.patch('/:id/statut', async (req, res) => {
   try {
     const result = await pool.query(
       `UPDATE objet
-       SET statut = $1, prix = COALESCE($2, prix)
+       SET statut = $1, prix = COALESCE($2, prix), etat_arrivee = $4, poids_kg = $5, categorie_id = $6
        WHERE id = $3
        RETURNING *`,
-      [statut, prix || null, req.params.id]
+      [statut, prix || null, req.params.id, etat_arrivee, poids_kg, categorie_id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ erreur: 'Objet introuvable' });
