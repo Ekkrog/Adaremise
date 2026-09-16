@@ -51,7 +51,7 @@ objetRouter.get('/:id', async (req, res) => {
 
 // PATCH /objets/:id/statut — fait évoluer le statut d'un objet
 objetRouter.patch('/:id/statut', async (req, res) => {
-  const { statut, prix } = req.body;
+  const { etat_arrivee, statut, prix } = req.body;
 
   const statutsValides = ['arrive', 'en_reparation', 'en_rayon', 'vendu', 'recycle'];
   if (!statut || !statutsValides.includes(statut)) {
@@ -61,10 +61,10 @@ objetRouter.patch('/:id/statut', async (req, res) => {
   try {
     const result = await pool.query(
       `UPDATE objet
-       SET statut = $1, prix = COALESCE($2, prix)
+       SET statut = $1, prix = COALESCE($2, prix), etat_arrivee = $4
        WHERE id = $3
        RETURNING *`,
-      [statut, prix || null, req.params.id]
+      [statut, prix || null, req.params.id, etat_arrivee]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ erreur: 'Objet introuvable' });

@@ -9,6 +9,7 @@ function SuiviObjets() {
     const [newEtat, setNewEtat] = useState('');
     const [newStatut, setNewStatut] = useState('');
     const [newPrix, setNewPrix] = useState('');
+    const [refresh, setRefresh] = useState(false)
 
     const location = useLocation();
     const params = useParams();
@@ -25,10 +26,11 @@ function SuiviObjets() {
             setNewEtat(obj.etat_arrivee || '');
             setNewStatut(obj.statut || '');
             setNewPrix(obj.prix || '');
+            setRefresh(false);
         };
 
         chargerDonnees();
-    }, [location.pathname]);
+    }, [location.pathname], refresh);
 
     if (!monObjet) {
         return <p>Chargement des données...</p>;
@@ -87,7 +89,7 @@ function SuiviObjets() {
                 const path = location.pathname + '/statut/';
                 const objUpdated = await getData(path, 'PATCH', data);
                 
-                setMonObjet(objUpdated);
+                setRefresh(true)
             }}>
                 Enregistrer
             </span>

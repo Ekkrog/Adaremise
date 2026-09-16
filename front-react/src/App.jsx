@@ -44,6 +44,7 @@ export default function App() {
                         localStorage.removeItem("connecte");
                         localStorage.removeItem("benevoleChoisi");
                         localStorage.clear();
+                        setBenevoleChoisi(0);
                         setConnecte(false);
                     }}>Se déconnecter</span>
                 </>
