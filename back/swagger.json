@@ -265,11 +265,11 @@
         }
       }
     },
-     "/benevole": {
+    "/benevoles": {
       "get": {
-        "summary": "Liste toutes les personnes",
+        "summary": "Liste tous les bénévoles",
         "responses": {
-          "200": { "description": "La liste des personnes" }
+          "200": { "description": "La liste des bénévoles" }
         }
       },
       "post": {
@@ -284,12 +284,32 @@
                 "properties": {
                   "nom": { "type": "string" },
                   "prenom": { "type": "string" },
-                  "telephone": { "type": "string" },
-                  "adherente": { "type": "boolean" }
+                  "telephone": { "type": "string" }
                 }
               }
             }
           }
+        },
+        "responses": {
+          "201": { "description": "Bénévole créé" },
+          "400": { "description": "Champs manquants ou invalides" }
+        }
+      }
+    },
+    "/benevoles/{id}": {
+      "delete": {
+        "summary": "Supprime un bénévole",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Bénévole supprimé" },
+          "404": { "description": "Bénévole introuvable" }
         }
       }
     }
