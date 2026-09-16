@@ -15,3 +15,15 @@
 body{
     background-color: var(--creme);
 }
+
+.erreur-champ { 
+    color: #c0392b; 
+    font-size: 0.85em; 
+    margin: 2px 0 0; 
+}
+
+.succes { 
+    color: #27ae60; 
+    font-weight: bold; 
+    margin: 4px 0; 
+}

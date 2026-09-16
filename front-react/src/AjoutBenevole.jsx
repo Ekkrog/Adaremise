@@ -6,29 +6,38 @@ function AjoutBenevole({ onBenevoleAjoute }) {
     const [nom, setNom] = useState("");
     const [prenom, setPrenom] = useState("");
     const [telephone, setTelephone] = useState("");
-    const [erreur, setErreur] = useState("");
+    const [erreurs, setErreurs] = useState({});
+    const [messageSucces, setMessageSucces] = useState("");
 
     const sendBenevole = async () => {
-        if (!nom || !prenom) {
-            setErreur("Nom et prénom sont requis");
-            return;
+        const nouvellesErreurs = {};
+
+        if (!nom.trim()) nouvellesErreurs.nom = "Nom requis";
+        if (!prenom.trim()) nouvellesErreurs.prenom = "Prénom requis";
+        if (telephone && !/^[0-9+ .-]{6,20}$/.test(telephone.trim())) {
+            nouvellesErreurs.telephone = "Téléphone invalide";
         }
 
+        setErreurs(nouvellesErreurs);
+        if (Object.keys(nouvellesErreurs).length > 0) return;
+
         try {
-            const data = { nom:nom, prenom:prenom, telephone:telephone || undefined };
+            const data = { nom: nom.trim(), prenom: prenom.trim(), telephone: telephone.trim() || undefined };
             const nouveauBenevole = await getData("/benevoles", "POST", data);
-            console.log(data)
+
             setNom("");
             setPrenom("");
             setTelephone("");
-            setErreur("");
+            setErreurs({});
+            setMessageSucces("Bénévole ajouté avec succès !");
+            setTimeout(() => setMessageSucces(""), 3000);
 
             if (onBenevoleAjoute) {
                 onBenevoleAjoute(nouveauBenevole);
             }
         } catch (err) {
             console.error(err);
-            setErreur("Erreur lors de la création du bénévole");
+            setErreurs({ global: "Erreur lors de la création du bénévole" });
         }
     };
 
@@ -43,6 +52,7 @@ function AjoutBenevole({ onBenevoleAjoute }) {
                         onChange={(e) => setNom(e.target.value)}
                         required
                     />
+                    {erreurs.nom && <p className="erreur-champ">{erreurs.nom}</p>}
                 </div>
                 <div className="champ">
                     <label>Prénom : </label>
@@ -52,6 +62,7 @@ function AjoutBenevole({ onBenevoleAjoute }) {
                         onChange={(e) => setPrenom(e.target.value)}
                         required
                     />
+                    {erreurs.prenom && <p className="erreur-champ">{erreurs.prenom}</p>}
                 </div>
                 <div className="champ">
                     <label>Téléphone : </label>
@@ -60,8 +71,10 @@ function AjoutBenevole({ onBenevoleAjoute }) {
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
                     />
+                    {erreurs.telephone && <p className="erreur-champ">{erreurs.telephone}</p>}
                 </div>
-                {erreur && <p className="erreur">{erreur}</p>}
+                {erreurs.global && <p className="erreur">{erreurs.global}</p>}
+                {messageSucces && <p className="succes">{messageSucces}</p>}
                 <span className="button" onClick={sendBenevole}>
                     Ajouter le bénévole
                 </span>
