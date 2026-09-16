@@ -264,6 +264,34 @@
           }
         }
       }
+    },
+     "/benevole": {
+      "get": {
+        "summary": "Liste toutes les personnes",
+        "responses": {
+          "200": { "description": "La liste des personnes" }
+        }
+      },
+      "post": {
+        "summary": "Crée un nouveau bénévole",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nom", "prenom"],
+                "properties": {
+                  "nom": { "type": "string" },
+                  "prenom": { "type": "string" },
+                  "telephone": { "type": "string" },
+                  "adherente": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
