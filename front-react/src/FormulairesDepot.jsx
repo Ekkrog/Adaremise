@@ -30,37 +30,56 @@ export function formatPrix(valeur) {
   return `${Number(valeur).toFixed(2)} €`;
 }
 
-export function FormulaireDepot({ onSubmit, erreur }) {
+export function FormulaireDepot({ onSubmit, erreurs = {} }) {
   return (
     <form onSubmit={onSubmit}>
       <h3>Enregistrer le dépôt</h3>
-      <input name="nom" placeholder="Nom" required />
-      <input name="prenom" placeholder="Prénom" required />
-      <input name="date_depot" type="date" required />
-      <input name="telephone" placeholder="Téléphone (optionnel)" />
+      <div className="champ">
+        <input name="nom" placeholder="Nom" />
+        {erreurs.nom && <p className="erreur-champ">{erreurs.nom}</p>}
+      </div>
+      <div className="champ">
+        <input name="prenom" placeholder="Prénom" />
+        {erreurs.prenom && <p className="erreur-champ">{erreurs.prenom}</p>}
+      </div>
+      <div className="champ">
+        <input name="date_depot" type="date" />
+        {erreurs.date_depot && <p className="erreur-champ">{erreurs.date_depot}</p>}
+      </div>
+      <div className="champ">
+        <input name="telephone" placeholder="Téléphone (optionnel)" />
+        {erreurs.telephone && <p className="erreur-champ">{erreurs.telephone}</p>}
+      </div>
       <select name="type">
         <option value="boutique">Boutique</option>
         <option value="domicile">Domicile</option>
       </select>
       <button type="submit">Enregistrer le dépôt</button>
-      {erreur && <p>{erreur}</p>}
+      {erreurs.global && <p className="erreur">{erreurs.global}</p>}
     </form>
   );
 }
 
-export function FormulaireObjet({ onSubmit, categories, erreur }) {
+export function FormulaireObjet({ onSubmit, categories, erreurs = {} }) {
   return (
     <form onSubmit={onSubmit}>
       <h3>Ajouter un objet</h3>
-      <input name="libelle" placeholder="Nom de l'objet" required />
+      <div className="champ">
+        <input name="libelle" placeholder="Nom de l'objet" />
+        {erreurs.libelle && <p className="erreur-champ">{erreurs.libelle}</p>}
+      </div>
 
-      <select name="categorie_id" required>
-        {categories.map((categorie) => (
-          <option key={categorie.id} value={categorie.id}>
-            {categorie.libelle}
-          </option>
-        ))}
-      </select>
+      <div className="champ">
+        <select name="categorie_id" defaultValue="">
+          <option value="" disabled>-- Catégorie --</option>
+          {categories.map((categorie) => (
+            <option key={categorie.id} value={categorie.id}>
+              {categorie.libelle}
+            </option>
+          ))}
+        </select>
+        {erreurs.categorie_id && <p className="erreur-champ">{erreurs.categorie_id}</p>}
+      </div>
 
       <select name="etat_arrivee">
         <option value="bon_etat">Bon état</option>
@@ -68,20 +87,21 @@ export function FormulaireObjet({ onSubmit, categories, erreur }) {
         <option value="hors_service">Hors service</option>
       </select>
 
-      <input
-        name="poids_kg"
-        type="number"
-        placeholder="Poids (kg)"
-        required
-      />
+      <div className="champ">
+        <input name="poids_kg" type="number" placeholder="Poids (kg)" step="0.01" min="0" />
+        {erreurs.poids_kg && <p className="erreur-champ">{erreurs.poids_kg}</p>}
+      </div>
 
-      <input name="prix" type="number" placeholder="Prix (€)" />
+      <div className="champ">
+        <input name="prix" type="number" placeholder="Prix (€)" step="0.01" min="0" />
+        {erreurs.prix && <p className="erreur-champ">{erreurs.prix}</p>}
+      </div>
+
       <button type="submit">Ajouter l'objet</button>
-      {erreur && <p>{erreur}</p>}
+      {erreurs.global && <p className="erreur">{erreurs.global}</p>}
     </form>
   );
 }
-
 
 function FormulairesDepot() {
   return <></>;
