@@ -1,0 +1,21 @@
+.liste_benevoles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.ligne_benevole {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--creme);
+    border-radius: 6px;
+}
+
+.bouton_supprimer {
+    cursor: pointer;
+    color: var(--red);
+}

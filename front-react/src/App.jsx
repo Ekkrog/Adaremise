@@ -12,7 +12,7 @@ import './App.css';
 import './variables.css';
 import NouveauDepot from "./NouveauDepot.jsx";
 import logo from './assets/img/logo-la-remise.png';
-
+import GestionBenevoles from "./GestionBenevoles.jsx";
 
 function Home({benevoleChoisi}) {
     return (
@@ -59,6 +59,7 @@ export default function App() {
                         <Route path="/depot" element={  <NouveauDepot />  } />
                         <Route path="/stats" element={  <Stats />  } />
                         <Route path="/vente" element={  <Vente />  } />
+                        <Route path="/benevoles/gestion" element={  <GestionBenevoles />  } />
                     </>
                     
                     
