@@ -16,7 +16,6 @@ function Vente() {
     const [panier, setPanier] = useState([]);
     const [client, setClient] = useState({});
     const [listeClients, setListeClients] = useState([]);
-    const [article, setArticle] = useState();
     const [total, setTotal] = useState(0);
     const [avendre, setAvendre] = useState([{}]);
     const [nouveauPrix, setNouveauPrix] = useState(null);
@@ -25,11 +24,12 @@ function Vente() {
     const [prenom, setPrenom] = useState("");
     const [tel, setTel] = useState("");
     const [modePaiement, setModePaiement] = useState('');
+    const [erreurs, setErreurs] = useState({});
+    const [messageSucces, setMessageSucces] = useState("");
 
     useEffect(() => {
         const chargerDonnees = async () => {
             const clients = await getData("/personnes/");
-            //console.log(clients);
             setListeClients(clients);
 
             const artAVendre = await getData("/objets?statut=en_rayon");
@@ -41,6 +41,81 @@ function Vente() {
 
         chargerDonnees();
     }, [client, panier]);
+
+    const ajouterClient = async () => {
+        const nouvellesErreurs = {};
+
+        if (!nom.trim()) nouvellesErreurs.nom = "Nom requis";
+        if (!prenom.trim()) nouvellesErreurs.prenom = "Prénom requis";
+        if (tel && !/^[0-9+ .-]{6,20}$/.test(tel.trim())) {
+            nouvellesErreurs.tel = "Téléphone invalide";
+        }
+
+        setErreurs(nouvellesErreurs);
+        if (Object.keys(nouvellesErreurs).length > 0) return;
+
+        const newClient = tel.trim() !== ""
+            ? { nom: nom.trim(), prenom: prenom.trim(), telephone: tel.trim() }
+            : { nom: nom.trim(), prenom: prenom.trim() };
+
+        const addClient = await getData("/personnes/", "POST", newClient);
+        setClient(addClient);
+        setCreer(false);
+        setErreurs({});
+    };
+
+    const ajouterAuPanier = (objet) => {
+        const nouvellesErreurs = {};
+
+        if (nouveauPrix !== null && nouveauPrix !== "" && (isNaN(Number(nouveauPrix)) || Number(nouveauPrix) < 0)) {
+            nouvellesErreurs.prix = "Prix invalide";
+        }
+
+        setErreurs(nouvellesErreurs);
+        if (Object.keys(nouvellesErreurs).length > 0) return;
+
+        const prixFinal = nouveauPrix !== null && nouveauPrix !== ""
+            ? Number(nouveauPrix)
+            : Number(objet.prix);
+
+        const panierTempo = panier;
+        setPanier([
+            ...panierTempo,
+            { id: objet.id, libelle: objet.libelle, prix: prixFinal },
+        ]);
+        setAvendre([...avendre.filter(item => item !== objet)]);
+        setTotal(total + prixFinal);
+        setNouveauPrix(null);
+        setErreurs({});
+    };
+
+    const validerAchat = () => {
+        const nouvellesErreurs = {};
+
+        if (!client.id) nouvellesErreurs.client = "Sélectionnez un client";
+        if (!modePaiement) nouvellesErreurs.modePaiement = "Sélectionnez un mode de paiement";
+        if (panier.length === 0) nouvellesErreurs.panier = "Le panier est vide";
+
+        setErreurs(nouvellesErreurs);
+        if (Object.keys(nouvellesErreurs).length > 0) return;
+
+        const date = new Date().toJSON();
+        const data = { date: date, mode_paiement: modePaiement };
+        const maVente = getData('/ventes', 'POST', data);
+
+        panier.forEach(p => {
+            const data = { id: p.id, prix_paye: p.prix, vente_id: maVente.id, statut: 'vendu' };
+            getData('/ventes', 'PATCH', data);
+        });
+
+        setPanier([]);
+        setTotal(0);
+        setClient({});
+        setCreer(false);
+        setErreurs({});
+        setMessageSucces("Vente finalisée avec succès !");
+        setTimeout(() => setMessageSucces(""), 3000);
+    };
 
     return (
         <>
@@ -58,17 +133,19 @@ function Vente() {
                                                     {c.nom + " " + c.prenom}
                                                 </option>
                                             ) : (
-                                                <option key={c.id} value={ c.id } >
+                                                <option key={c.id} value={c.id} >
                                                     {c.nom + " " + c.prenom}
                                                 </option>
                                             );
                                         })}
                                     </select>
+                                    {erreurs.client && <p className="erreur-champ">{erreurs.client}</p>}
 
                                     <span
                                         className="button tiny"
                                         onClick={() => {
                                             setCreer(true);
+                                            setErreurs({});
                                         }}
                                     >
                                         ✙
@@ -79,20 +156,18 @@ function Vente() {
                         {creer && (
                             <>
                                 <label>Nom : </label>
-                                <input placeholder="Nom Requis" onChange={(e) => setNom(e.target.value)} required />
+                                <input placeholder="Nom Requis" value={nom} onChange={(e) => setNom(e.target.value)} />
+                                {erreurs.nom && <p className="erreur-champ">{erreurs.nom}</p>}
+
                                 <label>Prénom : </label>
-                                <input placeholder="Prénom Requis" onChange={(e) => setPrenom(e.target.value)} required />
+                                <input placeholder="Prénom Requis" value={prenom} onChange={(e) => setPrenom(e.target.value)} />
+                                {erreurs.prenom && <p className="erreur-champ">{erreurs.prenom}</p>}
+
                                 <label>Numéro de téléphone : </label>
-                                <input placeholder="Optionnel" onChange={(e) => setTel(e.target.value)} />
-                                <span className="button" onClick={
-                                        async () => { const newClient = tel != ""  ? { nom: nom, prenom: prenom, telephone: tel, } : { nom: nom, prenom: prenom };
-                                        console.log(newClient);
-                                        const addClient = await getData("/personnes/", "POST", newClient);
-                                        const ajouterClient = (x) => {  setClient(x); };
-                                        ajouterClient(addClient);
-                                        setCreer(!creer);
-                                    }}
-                                >
+                                <input placeholder="Optionnel" value={tel} onChange={(e) => setTel(e.target.value)} />
+                                {erreurs.tel && <p className="erreur-champ">{erreurs.tel}</p>}
+
+                                <span className="button" onClick={ajouterClient}>
                                     Ajouter nouveau client
                                 </span>
                             </>
@@ -101,7 +176,6 @@ function Vente() {
                     <section className="formulaire">
                         <section className="listeArticles">
                             {avendre.map((objet) => {
-                                
                                 return (
                                     <article
                                         key={objet.id}
@@ -118,46 +192,14 @@ function Vente() {
                                             <input
                                                 placeholder="Petite ristourne ?"
                                                 onChange={(e) => {
-                                                    setNouveauPrix(
-                                                        e.target.value,
-                                                    );
+                                                    setNouveauPrix(e.target.value);
                                                 }}
                                             />
+                                            {erreurs.prix && <p className="erreur-champ">{erreurs.prix}</p>}
                                         </p>
                                         <span
                                             className="button tiny"
-                                            onClick={() => {
-                                                const panierTempo = panier;
-                                                setPanier([
-                                                    ...panierTempo,
-                                                    nouveauPrix != null
-                                                        ? {
-                                                              id: objet.id,
-                                                              libelle:
-                                                                  objet.libelle,
-                                                              prix: nouveauPrix,
-                                                            }
-                                                        : {
-                                                              id: objet.id,
-                                                              libelle:
-                                                                  objet.libelle,
-                                                              prix: objet.prix,
-                                                          },
-                                                ]);
-                                                setAvendre([...avendre.filter(item => item !== objet)])
-                                                const nouveauTotal = total;
-                                                setTotal(
-                                                    nouveauTotal +
-                                                        (nouveauPrix != null
-                                                            ? Number(
-                                                                  nouveauPrix,
-                                                              )
-                                                            : Number(
-                                                                  objet.prix,
-                                                              )),
-                                                );
-                                                setNouveauPrix(null);
-                                            }}
+                                            onClick={() => ajouterAuPanier(objet)}
                                         >
                                             🧺
                                         </span>
@@ -169,12 +211,12 @@ function Vente() {
                 </div>
 
                 <section className="panier">
+                    {erreurs.panier && <p className="erreur-champ">{erreurs.panier}</p>}
                     <ul className="overflow">
                         {panier.map((p) => {
-                            
                             return (
                                 <li key={p.id}>
-                                    {p.libelle} --- {p.prix} 
+                                    {p.libelle} --- {p.prix}
                                     <span className="button tiny" onClick={() => {
                                         const totalTempo = total - p.prix;
                                         setTotal(totalTempo);
@@ -186,37 +228,24 @@ function Vente() {
                         })}
                     </ul>
                     <ul className="bottom">
-                        {client.adherente === true ? <li>Réduction adhérent 20%</li> : ''  }
+                        {client.adherente === true ? <li>Réduction adhérent 20%</li> : ''}
                         <li>
                             Total Panier : {client.adherente === true ? Number.parseFloat(total * 0.8).toFixed(2) : Number.parseFloat(total).toFixed(2)}€
                         </li>
                         <li>
-                            <select className="select" onChange={e => setModePaiement(e.target.value)} required>
+                            <select className="select" value={modePaiement} onChange={e => setModePaiement(e.target.value)}>
                                 <option value="">-- Sélectionner le mode de paiement --</option>
                                 <option value="especes">Espèces</option>
                                 <option value="carte">Carte bancaire</option>
                                 <option value="cheque">Chèque</option>
                             </select>
+                            {erreurs.modePaiement && <p className="erreur-champ">{erreurs.modePaiement}</p>}
                         </li>
                         <li>
-                            <span className="button" onClick={() => {
-                                const date = new Date().toJSON();
-
-                                const data = {date:date, mode_paiement:modePaiement};
-                                const maVente = getData('/ventes', 'POST', data);
-
-                                panier.forEach(p => {
-                                    const data = {id:p.id, prix_paye:p.prix, vente_id:maVente.id, statut:'vendu' }
-
-                                    const update = getData('/ventes', 'PATCH', data);
-                                })
-                                setPanier([]);
-                                setTotal(0);
-                                setClient({});
-                                setCreer(false);
-
-                            }}>Valider achat</span>
+                            {messageSucces && <p className="succes">{messageSucces}</p>}
+                            <span className="button" onClick={validerAchat}>Valider achat</span>
                         </li>
+
                     </ul>
                 </section>
             </div>
