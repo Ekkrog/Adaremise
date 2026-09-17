@@ -19,3 +19,44 @@
     cursor: pointer;
     color: var(--red);
 }
+
+.ligne_benevole {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--creme);
+    border-radius: 6px;
+}
+
+.confirmation_suppression {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.boutons_confirmation {
+    display: flex;
+    gap: 8px;
+}
+
+.bouton_annuler {
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--grey);
+}
+
+.bouton_confirmer {
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--red);
+    color: white;
+}
+
+.bouton_supprimer {
+    cursor: pointer;
+    color: var(--red);
+}
